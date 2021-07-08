@@ -1,13 +1,7 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Toolbar from "@material-ui/core/Toolbar";
-import { Typography } from "@material-ui/core";
 import SortIcon from '@material-ui/icons/Sort';
-import Slider from '@material-ui/core/Slider';
 import { withStyles } from "@material-ui/styles";
-
+import {makeStyles,AppBar,CssBaseline,Toolbar,Typography,Slider} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     mainAppBar: {
@@ -36,7 +30,6 @@ const ArraySlider = withStyles({
       }
 })(Slider);
 
-
   export default function App() {
     const classes = useStyles();
     return(
@@ -62,15 +55,11 @@ const ArraySlider = withStyles({
                     </AppBar>
                 
                 </Toolbar>
-            
-                
             </AppBar>
             <main>
                 <div>
                 </div>
             </main>
-
-
         </>
     );
 }
