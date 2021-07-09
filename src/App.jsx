@@ -1,11 +1,14 @@
 import React from "react";
 import SortIcon from '@material-ui/icons/Sort';
-import {AppBar,Button,CssBaseline,Toolbar,Typography, InputLabel, Select, NativeSelect, Grid} from "@material-ui/core";
+import {AppBar,Button,Toolbar,Typography, NativeSelect} from "@material-ui/core";
 import {useStyles, ArraySlider} from "./styles";
-import { Link, MenuItem, Box, ButtonGroup } from "@material-ui/core";
-import { borders } from '@material-ui/system';
+import {ButtonGroup } from "@material-ui/core";
+import DivCreator from "./divCreator";
+import './divCreator.css';
 
-  export default function App() {
+
+
+export default function App() {
     const classes = useStyles();
 
     function TopAppBar(){
@@ -13,9 +16,9 @@ import { borders } from '@material-ui/system';
         <div className={classes.topToolBarDiv}>
             <AppBar position="sticky" >
             <Toolbar className={classes.topToolBar}>
-                  <Typography variant="subtitle1">
-                    github
-                    linkedin
+                  <Typography variant="subtitle1" style={{paddingRight: "10vh",}}>
+                    Test
+                    Test
                   </Typography>
                   <Typography variant="h3">
                   <SortIcon></SortIcon>
@@ -36,15 +39,16 @@ import { borders } from '@material-ui/system';
     function LeftAlg(){
         return (
             <div className={classes.leftAlg}>
-
+                <DivCreator/>
             </div>
         )
     }
     
     function RightAlg(){
+
         return (
             <div className={classes.rightAlg}>
-            
+                <DivCreator/>
             </div>
         )
     }
@@ -66,7 +70,7 @@ import { borders } from '@material-ui/system';
                             defaultValue = {30}
                             step={30}
                             min={30}
-                            max={600}
+                            max={270}
                             valueLabelDisplay="off"
                         />
                         <NativeSelect

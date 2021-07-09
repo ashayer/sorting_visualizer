@@ -1,0 +1,9 @@
+.arrayBars{
+    color:black;
+    background: gray;
+    float: left;
+    position:relative;
+    top:1%;
+    bottom: 10%;
+    margin: 1px ;
+}

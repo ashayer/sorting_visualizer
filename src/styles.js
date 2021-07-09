@@ -1,7 +1,6 @@
 import { withStyles } from "@material-ui/styles";
 import { makeStyles } from "@material-ui/core";
 import { Slider } from "@material-ui/core";
-import { borders } from '@material-ui/system';
 
 const useStyles = makeStyles(() => ({
     bottomAppBar: {
@@ -18,19 +17,34 @@ const useStyles = makeStyles(() => ({
         justifyContent:"space-evenly",
     },
     leftAlg:{
-        border: "5px solid white",
-        width: "45%",
+        border: "1px solid white",
+        width: "44%",
         height: "85vh",
         float: 'left',
         marginLeft: "5vh",
     },
     rightAlg:{
-        border: "5px solid white",
-        width: "45%",
+        border: "1px solid white",
+        width: "44%",
         height: "85vh",
         float: "right",
         marginRight: "5vh",
-    }
+    },
+    centerBox:{
+        position: "fixed",
+        width: "5%",
+        height: "10vh",
+        zIndex: "100",
+        marginLeft: "47.5%",
+        marginTop: "15%",
+        textAlign: "center",
+
+    },
+    centerButtonSort:{
+        width: "100%",
+        paddingTop: "1vh",
+        
+    },
   }));
 
 const ArraySlider = withStyles({
