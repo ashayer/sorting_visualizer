@@ -4,9 +4,8 @@ import "./inputs"
 import {Button} from "@material-ui/core";
 import {ButtonGroup } from "@material-ui/core";
 import { withStyles } from '@material-ui/core/styles';
-import {useStyles} from './styles';
 
-class DivCreator extends React.Component{
+export default class DivCreator extends React.Component{
     constructor(props){
         super(props);
         
@@ -30,6 +29,7 @@ class DivCreator extends React.Component{
     }
 
     calculateWidth(){
+        
         let size = this.state.array.length;
         let finalWidth;
 
@@ -55,32 +55,38 @@ class DivCreator extends React.Component{
             default:
                 finalWidth = 1;
         }
-
+        console.log(finalWidth)
         return finalWidth;
     }
 
     render() {
         const {array} = this.state;
-        const {classes} = this.props;
-
         return (
-            <>
-                {array.map((value, idx) => (
-                    <div className="arrayBars" style={{height: value + "%", width: this.calculateWidth() + "px",}} key ={idx}>
-                    </div>
-                ))}
-
-            <div className={classes.centerBox}>
+            <div>
+                <div className="array-container-left">
+                        {array.map((value, idx) => ( /* */
+                            <div className="arrayBars" key ={idx} style={{height: value + "px", width: this.calculateWidth() + "px",}}>
+                            </div>
+                        ))}
+                </div>
+                <div className="centerBox">
                 <ButtonGroup
                     orientation="vertical"
-                    variant="contained"
                 >
-                    <Button className={classes.centerButtonSort} >Sort</Button>
-                    <Button className={classes.centerButtonNewArray} onClick={() => this.resetArray()}>New Array</Button>
-                </ButtonGroup>
-            </div>
-                    
-            </>
+                    <Button>Sort</Button>
+                    <Button onClick={() => this.resetArray()}> New Array</Button>
+                </ButtonGroup> 
+                </div>
+                
+
+                    <div className="array-container-right">
+                        {array.map((value, idx) => ( /* */
+                            <div className="arrayBars" key ={idx} style={{height: value + "px", width: this.calculateWidth() + "px",}}>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+  
         );
     }
 };
@@ -88,5 +94,3 @@ class DivCreator extends React.Component{
 function randomIntegers(min,max){
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
-
-export default withStyles(useStyles)(DivCreator);

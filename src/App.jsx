@@ -36,23 +36,6 @@ export default function App() {
         );
     }
 
-    function LeftAlg(){
-        return (
-            <div className={classes.leftAlg}>
-                <DivCreator/>
-            </div>
-        )
-    }
-    
-    function RightAlg(){
-
-        return (
-            <div className={classes.rightAlg}>
-                <DivCreator/>
-            </div>
-        )
-    }
-
     function BottomAppBar(){
         return (
                 <AppBar className={classes.bottomAppBar}>
@@ -88,12 +71,13 @@ export default function App() {
     }
 
     return(
-        <React.Fragment>
+        <div>
             <TopAppBar/>
-            <LeftAlg/>
-            <RightAlg/>
-            <BottomAppBar/> 
-        </React.Fragment>
+            <DivCreator/>
+            <BottomAppBar/>
+        </div>
+             
+        
         
     );
 }
