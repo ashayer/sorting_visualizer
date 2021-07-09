@@ -53,8 +53,8 @@ export default function App() {
                             defaultValue = {30}
                             step={30}
                             min={30}
-                            max={270}
-                            valueLabelDisplay="off"
+                            max={300}
+                            valueLabelDisplay="auto"
                         />
                         <NativeSelect
                             defaultValue={"S_SORT"}>

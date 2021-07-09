@@ -1,34 +1,37 @@
 .array-container-left{
-    border: "5px solid black";
-    width: "44%";
-    height: "85vh";
-    float: 'left';
-    margin-left: "5vh";
+    /* border: 1px solid black; */
+    width: 44%;
+    height: 85vh;
+    float: left;
+    text-align:center;
+    margin-left: 5vh;
     position: relative;
+    display: flex;
 }
 .array-container-right{
-    border: "5px solid black";
-    width: "44%";
-    height: "85vh";
-    float: 'right';
-    margin-right: "5vh";
+    /* border: 1px solid black; */
+    width: 44%;
+    height: 85vh;
+    float: right;
+    text-align:center;
+    margin-right: 5vh;
     position: relative;
+    display: flex;
 }
 .arrayBars{
-    color:black;
-    background: gray;
-    float: left;
+    /* display:inline-block; for non flex parent*/
+    background: orange;
     position:relative;
     top:1%;
     bottom: 10%;
-    margin: 1px ;
+    margin-left: 1px ;
+    padding:none;
+    flex: 1;
 }
-.centerBox:{
-    position: "fixed";
-    width: "5%";
-    height: "10vh";
-    z-index: "100";
-    margin-left: "47.5%";
-    margin-top: "15%";
-    text-align: "center";
+.centerBox{
+    position: fixed;
+    width: 100%;
+    height: 10vh;
+    margin-top: 35%;
+    text-align: center;
 }

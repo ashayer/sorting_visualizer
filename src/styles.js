@@ -20,13 +20,13 @@ const useStyles = makeStyles(() => ({
 
 const ArraySlider = withStyles({
     root: {
-        color: "#38f0ff",
+        color: "#ffa500",
         width: "15%",
-
     },
-    valueLabel: {
-        color: "#000"
+    valueLabel:{
+        color: "#000000"
     }
+
 })(Slider);
 
 export {
