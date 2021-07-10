@@ -1,2 +1,2 @@
 # Sorting Visualizer
-Interactive Sorting Web Application
+Interactive Sorting Visualizer
