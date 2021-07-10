@@ -7,56 +7,44 @@ import './divCreator.css';
 import {FormControl, MenuItem, Select} from "@material-ui/core";
 import {ArraySlider } from './styles';
 
-
-
-export default function App() {
-
-
+function TopAppBar(){
     const classes = useStyles();
-
-    function TopAppBar(){
-        return (
-        <div className={classes.topToolBarDiv}>
-            <AppBar position="sticky" >
-            <Toolbar className={classes.topToolBar}>
-                  <Typography variant="subtitle1" style={{paddingRight: "10vh",}}>
-                    Test
-                    Test
-                  </Typography>
-                  <Typography variant="h2">
-                    Sorting App
-                  </Typography>
-                  <ButtonGroup variant="contained">
-                    <Button>Fast</Button>
-                    <Button>Normal</Button>
-                    <Button>Slow</Button>
-                  </ButtonGroup>
-            </Toolbar>
-            </AppBar> 
-        </div>
-            
-        );
-    }
-
-    
-
-    return(
-        <div>
-            <TopAppBar/>
-            <DivCreator/>
-            {/* <BottomAppBar/> */}
-            <SizeSlider/>
-        </div>
-             
-        
+    return (
+    <div className={classes.topToolBarDiv}>
+        <AppBar position="sticky" >
+        <Toolbar className={classes.topToolBar}>
+              <Typography variant="subtitle1" style={{paddingRight: "10vh",}}>
+                Test
+                Test
+              </Typography>
+              <Typography variant="h2">
+                Sorting App
+              </Typography>
+              <ButtonGroup variant="contained">
+                <Button>Fast</Button>
+                <Button>Normal</Button>
+                <Button>Slow</Button>
+              </ButtonGroup>
+        </Toolbar>
+        </AppBar> 
+    </div>
         
     );
 }
 
-function BottomAppBar(props){
+
+function BottomAppBar() {
+
+    const [currVal, setVal] = React.useState(30);
     const classes = useStyles();
 
-    return(
+    const updateVal = (e, data) => {
+        setVal(data)
+    }
+
+
+    return (
+        <div>
         <AppBar className={classes.bottomAppBar}>
             <Toolbar className={classes.bottomToolBar}>
                 <FormControl className={classes.algSelect}>
@@ -75,7 +63,10 @@ function BottomAppBar(props){
                     min={30}
                     max={300}
                     valueLabelDisplay="auto"
-                    value={props.percentage}
+                    value = {currVal}
+                    onChange = {updateVal}
+                    
+
                 />
                 <FormControl className={classes.algSelect}>
                     <Select defaultValue={"Q_SORT"}>
@@ -90,36 +81,27 @@ function BottomAppBar(props){
                 
             </Toolbar>
         </AppBar>
-    )
-}
 
-class SizeSlider extends React.Component {
-    constructor(props){
-        super(props);
+        <DivCreator sliderVal = {currVal}/>
 
-        this.handleChange = this.handleChange.bind(this);
-        
-        this.state = {
-            percentage: 30,
-        }
+        </div>
+    );
+};
 
+export default class App extends React.Component {
 
-    }
-
-    render(){
-        return (
-            <BottomAppBar
-
-            value = {this.props.percentage}
-            onChange = {this.handleChange}
-            >
-
-
-            </BottomAppBar>
+    render() {
+        return(
+            <div>
+                <TopAppBar/>
+                <BottomAppBar>
+                </BottomAppBar>
+            </div>
+                 
+            
         );
     }
-
-    handleChange(e) {
-        this.setState({percentage: e.target.value})
-    }
+    
 }
+
+

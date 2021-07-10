@@ -4,6 +4,8 @@ import {Button} from "@material-ui/core";
 import {ButtonGroup } from "@material-ui/core";
 
 export default class DivCreator extends React.Component{
+    
+    
     constructor(props){
         super(props);
         
@@ -18,15 +20,23 @@ export default class DivCreator extends React.Component{
         
     }
 
-    resetArray(props) {
+    componentDidUpdate(prevProps){
+
+        if (this.props.sliderVal !== prevProps.sliderVal){
+            console.log("idk what this is doing");
+            this.resetArray();
+        }
+    }
+
+    resetArray() {
         const array = [];
-        for(let i=0;i<300;i++){
+        for(let i=0;i< this.props.sliderVal; i++){
             array.push(randomIntegers(1,99));
         }
         this.setState({array});
     }
 
-    calculateWidth(){
+    calculateWidth(props){
         
         let size = this.state.array.length;
         let finalWidth;
