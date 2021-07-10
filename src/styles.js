@@ -16,12 +16,21 @@ const useStyles = makeStyles(() => ({
     bottomToolBar:{
         justifyContent:"space-evenly",
     },
+    algSelect:{
+        color:"white",
+        backgroundColor:"white",
+        borderRadius: 8,
+        padding: 10,
+        paddingLeft: 40,
+        paddingRight: 40,
+        width: "20%",
+    }
   }));
 
 const ArraySlider = withStyles({
     root: {
         color: "#ffa500",
-        width: "15%",
+        width: "20%",
     },
     valueLabel:{
         color: "#000000"
