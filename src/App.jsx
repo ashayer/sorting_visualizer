@@ -36,19 +36,32 @@ function TopAppBar(){
 function BottomAppBar() {
 
     const [currVal, setVal] = React.useState(30);
+    const [currLeftAlg, setLeftAlg] = React.useState("B_SORT");
+    const [currRightAlg, setRightAlg] = React.useState("B_SORT");
+
     const classes = useStyles();
 
     const updateVal = (e, data) => {
         setVal(data)
     }
 
+    const updateLeftAlg = (e) => {
+        setLeftAlg(e.target.value);
+    }
 
+    const updateRightAlg = (e) => {
+        setRightAlg(e.target.value);
+    }
     return (
         <div>
         <AppBar className={classes.bottomAppBar}>
             <Toolbar className={classes.bottomToolBar}>
                 <FormControl className={classes.algSelect}>
-                    <Select defaultValue={"M_SORT"}>
+                    <Select 
+                        defaultValue= "M_SORT"
+                        value = {currLeftAlg}
+                        onChange = {updateLeftAlg}
+                    >
                         <MenuItem value = {"M_SORT"}>Merge Sort</MenuItem>
                         <MenuItem value = {"I_SORT"}>Insertion Sort</MenuItem>
                         <MenuItem value = {"S_SORT"}>Selection Sort</MenuItem>
@@ -65,11 +78,13 @@ function BottomAppBar() {
                     valueLabelDisplay="auto"
                     value = {currVal}
                     onChange = {updateVal}
-                    
-
                 />
                 <FormControl className={classes.algSelect}>
-                    <Select defaultValue={"Q_SORT"}>
+                    <Select 
+                        defaultValue="Q_SORT"
+                        value = {currRightAlg}
+                        onChange = {updateRightAlg}
+                    >
                         <MenuItem value = {"M_SORT"}>Merge Sort</MenuItem>
                         <MenuItem value = {"I_SORT"}>Insertion Sort</MenuItem>
                         <MenuItem value = {"S_SORT"}>Selection Sort</MenuItem>
@@ -82,7 +97,7 @@ function BottomAppBar() {
             </Toolbar>
         </AppBar>
 
-        <DivCreator sliderVal = {currVal}/>
+        <DivCreator sliderVal = {currVal} leftAlgSelect = {currLeftAlg} rightAlgSelect = {currRightAlg}/>
 
         </div>
     );

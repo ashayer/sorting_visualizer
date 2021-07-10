@@ -2,7 +2,7 @@ import React from "react";
 import "./divCreator.css";
 import {Button} from "@material-ui/core";
 import {ButtonGroup } from "@material-ui/core";
-
+import { bubbleSort } from "./sortingAlgs";
 export default class DivCreator extends React.Component{
     
     
@@ -11,6 +11,7 @@ export default class DivCreator extends React.Component{
         
         this.state = {
             array: [],
+            array2: [],
         };
 
     }
@@ -23,17 +24,22 @@ export default class DivCreator extends React.Component{
     componentDidUpdate(prevProps){
 
         if (this.props.sliderVal !== prevProps.sliderVal){
-            console.log("idk what this is doing");
             this.resetArray();
         }
     }
 
     resetArray() {
         const array = [];
+        const array2 = [];
         for(let i=0;i< this.props.sliderVal; i++){
             array.push(randomIntegers(1,99));
+            array2.push(randomIntegers(1,99));
+            
         }
-        this.setState({array});
+
+        this.setState((state, props) => {
+            return {array: array, array2: array2}
+        })
     }
 
     calculateWidth(props){
@@ -67,8 +73,18 @@ export default class DivCreator extends React.Component{
         return finalWidth;
     }
 
+    sortBars(props){
+        
+        this.setState((state, props) => {
+            return {array: bubbleSort(this.state.array), array2: bubbleSort(this.state.array)}
+        })
+
+    }
+
     render() {
         const {array} = this.state;
+        const {array2} = this.state;
+
         return (
             <div>
                 <div className="array-container-left">
@@ -79,12 +95,12 @@ export default class DivCreator extends React.Component{
                 </div>
                     <div className="centerBox">
                     <ButtonGroup orientation="vertical">
-                        <Button>Sort</Button>
+                        <Button onClick={() => this.sortBars()}>Sort</Button>
                         <Button onClick={() => this.resetArray()}> New Array</Button>
                     </ButtonGroup> 
                     </div>
                 <div className="array-container-right">
-                    {array.map((value, idx) => ( /* */
+                    {array2.map((value, idx) => ( /* */
                         <div className="arrayBars" key ={idx} style={{height: value + "%", width: this.calculateWidth() + "px",}}>
                         </div>
                     ))}

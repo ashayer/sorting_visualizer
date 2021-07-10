@@ -25,9 +25,6 @@ const useStyles = makeStyles(() => ({
         paddingRight: 40,
         width: "20%",
     },
-    ArraySlider:{
-
-    }
   }));
 
 const ArraySlider = withStyles({
