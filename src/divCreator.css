@@ -34,3 +34,8 @@
     margin-top: 35%;
     text-align: center;
 }
+
+.bottomAppBar {
+    top: auto;
+    bottom: 0;
+}

@@ -1,6 +1,5 @@
 import React from "react";
 import "./divCreator.css";
-import "./inputs"
 import {Button} from "@material-ui/core";
 import {ButtonGroup } from "@material-ui/core";
 
@@ -21,7 +20,7 @@ export default class DivCreator extends React.Component{
 
     resetArray(props) {
         const array = [];
-        for(let i=0;i<30;i++){
+        for(let i=0;i<300;i++){
             array.push(randomIntegers(1,99));
         }
         this.setState({array});
@@ -54,7 +53,7 @@ export default class DivCreator extends React.Component{
             default:
                 finalWidth = 1;
         }
-        console.log(finalWidth)
+
         return finalWidth;
     }
 
@@ -89,3 +88,5 @@ export default class DivCreator extends React.Component{
 function randomIntegers(min,max){
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
+
+
