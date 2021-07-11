@@ -2,7 +2,14 @@ import React from "react";
 import "./divCreator.css";
 import {Button} from "@material-ui/core";
 import {ButtonGroup } from "@material-ui/core";
-import { bubbleSort } from "./sortingAlgs";
+import { sortDecider } from "./sortingAlgs";
+
+function randomIntegers(min,max){
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+
+
 export default class DivCreator extends React.Component{
     
     
@@ -41,44 +48,79 @@ export default class DivCreator extends React.Component{
             return {array: array, array2: array2}
         })
     }
+    
+    sortBars(props){ 
+        const leftArray = sortDecider(this.state.array, this.props.leftAlgSelect);
+        const rightArray = sortDecider(this.state.array2, this.props.rightAlgSelect);
 
-    calculateWidth(props){
         
-        let size = this.state.array.length;
-        let finalWidth;
+        this.animateBarsLeft(leftArray);
+        this.animateBarsRight(rightArray);
 
-        switch(size){
-            case 30:
-                finalWidth = 20;
-                break;
-            case 60:
-                finalWidth = 10;
-                break;
-            case 90:
-                finalWidth = 7;
-                break;
-            case 120:
-                finalWidth = 4;
-                break;
-            case 150:
-                finalWidth = 3;
-                break;
-            case 180:
-                finalWidth = 2;
-                break;
-            default:
-                finalWidth = 1;
-        }
-
-        return finalWidth;
+        
+        
     }
 
-    sortBars(props){
-        
-        this.setState((state, props) => {
-            return {array: bubbleSort(this.state.array), array2: bubbleSort(this.state.array)}
-        })
+    animateBarsLeft(leftArray){
+        let bars = document.getElementsByClassName("arrayBars");
 
+        let compares = leftArray[1];
+
+        for(let i =0; i<compares.length;i++){
+            //console.log(bars[i]);
+            setTimeout(() => {
+                let currentCompare = compares[i];
+                
+                console.log(bars[currentCompare[0]].clientHeight)
+                console.log(bars[currentCompare[1]].clientHeight)
+
+                let tempHeight = bars[currentCompare[0]].clientHeight;
+
+                bars[currentCompare[0]].style.height = bars[currentCompare[1]].clientHeight + "px";
+                bars[currentCompare[1]].style.height = tempHeight + "px";
+                
+
+                console.log(bars[currentCompare[0]].clientHeight)
+                console.log(bars[currentCompare[1]].clientHeight)
+
+                bars[currentCompare[0]].style.background = "#000000";
+                bars[currentCompare[0]].style.background = "orange";
+                bars[currentCompare[1]].style.background = "#000000";
+                bars[currentCompare[1]].style.background = "orange";
+            }, i * 20);
+            
+        }
+    }
+
+    animateBarsRight(rightArray){
+        let bars = document.getElementsByClassName("arrayBars2");
+
+        let compares = rightArray[1];
+
+        for(let i =0; i<compares.length;i++){
+            //console.log(bars[i]);
+            setTimeout(() => {
+                let currentCompare = compares[i];
+                
+                console.log(bars[currentCompare[0]].clientHeight)
+                console.log(bars[currentCompare[1]].clientHeight)
+
+                let tempHeight = bars[currentCompare[0]].clientHeight;
+
+                bars[currentCompare[0]].style.height = bars[currentCompare[1]].clientHeight + "px";
+                bars[currentCompare[1]].style.height = tempHeight + "px";
+                
+
+                console.log(bars[currentCompare[0]].clientHeight)
+                console.log(bars[currentCompare[1]].clientHeight)
+
+                bars[currentCompare[0]].style.background = "#000000";
+                bars[currentCompare[0]].style.background = "orange";
+                bars[currentCompare[1]].style.background = "#000000";
+                bars[currentCompare[1]].style.background = "orange";
+            }, i * 20);
+            
+        }
     }
 
     render() {
@@ -101,7 +143,7 @@ export default class DivCreator extends React.Component{
                     </div>
                 <div className="array-container-right">
                     {array2.map((value, idx) => ( /* */
-                        <div className="arrayBars" key ={idx} style={{height: value + "%", width: this.calculateWidth() + "px",}}>
+                        <div className="arrayBars2" key ={idx} style={{height: value + "%"}}>
                         </div>
                     ))}
                 </div>
@@ -111,8 +153,5 @@ export default class DivCreator extends React.Component{
     }
 };
 
-function randomIntegers(min,max){
-    return Math.floor(Math.random() * (max - min + 1) + min);
-}
 
 

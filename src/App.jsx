@@ -18,7 +18,7 @@ function TopAppBar(){
                 Test
               </Typography>
               <Typography variant="h2">
-                Sorting App
+                Sorting Visualizer
               </Typography>
               <ButtonGroup variant="contained">
                 <Button>Fast</Button>

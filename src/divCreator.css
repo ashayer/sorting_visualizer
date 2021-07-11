@@ -27,6 +27,16 @@
     padding:none;
     flex: 1;
 }
+.arrayBars2{
+    /* display:inline-block; */
+    background: orange;
+    position:relative;
+    top:1%;
+    bottom: 10%;
+    margin-left: 1px ;
+    padding:none;
+    flex: 1;
+}
 .centerBox{
     position: fixed;
     width: 100%;
