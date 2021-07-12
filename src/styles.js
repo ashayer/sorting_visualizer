@@ -1,5 +1,5 @@
 import { withStyles } from "@material-ui/styles";
-import { makeStyles } from "@material-ui/core";
+import { makeStyles, Typography } from "@material-ui/core";
 import { Slider } from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
@@ -25,6 +25,7 @@ const useStyles = makeStyles(() => ({
         paddingRight: 40,
         width: "20%",
     },
+
   }));
 
 const ArraySlider = withStyles({
@@ -38,7 +39,31 @@ const ArraySlider = withStyles({
 
 })(Slider);
 
+const SpeedSlider = withStyles({
+    root: {
+        color: "#ffa500",
+        width: "25%",
+    },
+    valueLabel:{
+        color: "#000000"
+    },
+    markLabel: {
+        color: "white",
+    }
+
+})(Slider);
+
+const Title = withStyles({
+    root: {
+        width: "25%",
+    
+    },
+
+})(Typography);
+
 export {
     useStyles,
-    ArraySlider
+    ArraySlider,
+    SpeedSlider,
+    Title,
 }

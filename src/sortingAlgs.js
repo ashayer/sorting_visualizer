@@ -30,13 +30,32 @@ function bubbleSort(array){
                 var temp = array[j];
                 array[j] = array[j+1];
                 array[j+1] = temp;
+                
                 animationArray.push([j,j+1]);
-
             }
+            
         }
     }
 
-    
+
+    return [array,animationArray];
+}
+
+function insertionSort(array){
+    let i,key, j;
+    let animationArray = [];
+    for(i = 1;i<array.length;i++){
+        key = array[i];
+        j = i -1;
+
+        while(j >= 0 && array[j] > key){
+            array[j+1] = array[j];
+            j = j - 1;
+        }
+        array[j+1] = key;
+
+        animationArray.push([i,j+1]);
+    }
 
     return [array,animationArray];
 }

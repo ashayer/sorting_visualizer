@@ -8,33 +8,26 @@ function randomIntegers(min,max){
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-
-
 export default class DivCreator extends React.Component{
-    
-    
     constructor(props){
         super(props);
-        
         this.state = {
             array: [],
             array2: [],
         };
 
     }
-    
     componentDidMount(){
-        this.resetArray();
-        
+        this.resetArray();   
     }
-
     componentDidUpdate(prevProps){
-
         if (this.props.sliderVal !== prevProps.sliderVal){
             this.resetArray();
         }
+        if(this.props.speedVal !== prevProps.speedVal){
+            this.resetArray();
+        }
     }
-
     resetArray() {
         const array = [];
         const array2 = [];
@@ -43,84 +36,123 @@ export default class DivCreator extends React.Component{
             array2.push(randomIntegers(1,99));
             
         }
-
         this.setState((state, props) => {
             return {array: array, array2: array2}
         })
+
+        let leftBars = document.getElementsByClassName("arrayBars");
+        let rightBars = document.getElementsByClassName("arrayBars2");
+        for(let i =0; i<leftBars.length;i++){
+            leftBars[i].style.background = "orange";
+            rightBars[i].style.background = "orange";
+        }
     }
-    
     sortBars(props){ 
+        this.disableElements();
         const leftArray = sortDecider(this.state.array, this.props.leftAlgSelect);
         const rightArray = sortDecider(this.state.array2, this.props.rightAlgSelect);
+       
+        console.log(this.props.rightAlgSelect);
 
-        
-        this.animateBarsLeft(leftArray);
-        this.animateBarsRight(rightArray);
+        switch(this.props.leftAlgSelect){
+            case "B_SORT":
+                this.bubbleSortAnimate(leftArray, "arrayBars");
+                break;
+            case "M_SORT":
+                this.bubbleSortAnimate(leftArray, "arrayBars");
+                break
+            case "I_SORT":
+                this.bubbleSortAnimate(leftArray, "arrayBars");
+                break
+            case "S_SORT":
+                this.bubbleSortAnimate(leftArray, "arrayBars");
+                break
+            case "Q_SORT":
+                this.bubbleSortAnimate(leftArray, "arrayBars");
+                break
+            case "H_SORT":
+                this.bubbleSortAnimate(leftArray, "arrayBars");
+                break
+            default:
+    
+        }
 
-        
+        switch(this.props.rightAlgSelect){
+            case "B_SORT":
+                this.bubbleSortAnimate(rightArray, "arrayBars2");
+                break;
+            case "M_SORT":
+                this.bubbleSortAnimate(rightArray, "arrayBars2");
+                break
+            case "I_SORT":
+                this.bubbleSortAnimate(rightArray, "arrayBars2");
+                break
+            case "S_SORT":
+                this.bubbleSortAnimate(rightArray, "arrayBars2");
+                break
+            case "Q_SORT":
+                this.bubbleSortAnimate(rightArray, "arrayBars2");
+                break
+            case "H_SORT":
+                this.bubbleSortAnimate(rightArray, "arrayBars2");
+                break
+            default:
+    
+        }
         
     }
 
-    animateBarsLeft(leftArray){
-        let bars = document.getElementsByClassName("arrayBars");
-
-        let compares = leftArray[1];
-
+    bubbleSortAnimate(arr, side, props){
+        let bars = document.getElementsByClassName(side);
+        
+        let compares = arr[1];
+        
         for(let i =0; i<compares.length;i++){
-            //console.log(bars[i]);
             setTimeout(() => {
                 let currentCompare = compares[i];
-                
-                console.log(bars[currentCompare[0]].clientHeight)
-                console.log(bars[currentCompare[1]].clientHeight)
-
                 let tempHeight = bars[currentCompare[0]].clientHeight;
-
                 bars[currentCompare[0]].style.height = bars[currentCompare[1]].clientHeight + "px";
                 bars[currentCompare[1]].style.height = tempHeight + "px";
-                
-
-                console.log(bars[currentCompare[0]].clientHeight)
-                console.log(bars[currentCompare[1]].clientHeight)
-
-                bars[currentCompare[0]].style.background = "#000000";
-                bars[currentCompare[0]].style.background = "orange";
-                bars[currentCompare[1]].style.background = "#000000";
-                bars[currentCompare[1]].style.background = "orange";
-            }, i * 20);
+                if(((i+1) < compares.length) 
+                && compares[i+1][1] < currentCompare[1]){
+                    bars[currentCompare[1]].style.background = "black";
+                }
+                this.animateFinish(side, i, arr);
+            }, i * this.props.speedVal);
             
         }
+        
     }
+    disableElements(props){
 
-    animateBarsRight(rightArray){
-        let bars = document.getElementsByClassName("arrayBars2");
+        document.getElementById("centerBox").style.visibility = "hidden";
+        document.getElementById("speedSlider").style.visibility = "hidden";
+        document.getElementById("arraySlider").style.visibility = "hidden";
+    }
+    enableElements(props){
+        document.getElementById("centerBox").style.visibility = "visible";
+        document.getElementById("speedSlider").style.visibility = "visible";
+        document.getElementById("arraySlider").style.visibility = "visible";
 
-        let compares = rightArray[1];
-
-        for(let i =0; i<compares.length;i++){
-            //console.log(bars[i]);
-            setTimeout(() => {
-                let currentCompare = compares[i];
+    }
+    animateFinish(side, i, arr,props){
+        this.finished = true;
+        if(i===arr[1].length-1){
+            let bars = document.getElementsByClassName(side);
+            for(let i =0; i<bars.length;i++){
+                setTimeout(() => {
+                    bars[i].style.background = "green";
+                }, i * this.props.speedVal);
                 
-                console.log(bars[currentCompare[0]].clientHeight)
-                console.log(bars[currentCompare[1]].clientHeight)
+            }
 
-                let tempHeight = bars[currentCompare[0]].clientHeight;
-
-                bars[currentCompare[0]].style.height = bars[currentCompare[1]].clientHeight + "px";
-                bars[currentCompare[1]].style.height = tempHeight + "px";
-                
-
-                console.log(bars[currentCompare[0]].clientHeight)
-                console.log(bars[currentCompare[1]].clientHeight)
-
-                bars[currentCompare[0]].style.background = "#000000";
-                bars[currentCompare[0]].style.background = "orange";
-                bars[currentCompare[1]].style.background = "#000000";
-                bars[currentCompare[1]].style.background = "orange";
-            }, i * 20);
-            
+            if(this.finished){
+                this.enableElements();
+            }
         }
+
+        
+        
     }
 
     render() {
@@ -129,16 +161,16 @@ export default class DivCreator extends React.Component{
 
         return (
             <div>
-                <div className="array-container-left">
+                <div className="array-container-left" >
                         {array.map((value, idx) => ( /* */
                             <div className="arrayBars" key ={idx} style={{height: value + "%"}}>
                             </div>
                         ))}
                 </div>
-                    <div className="centerBox">
-                    <ButtonGroup orientation="vertical">
-                        <Button onClick={() => this.sortBars()}>Sort</Button>
-                        <Button onClick={() => this.resetArray()}> New Array</Button>
+                    <div className="centerBox" id="centerBox">
+                    <ButtonGroup orientation="vertical" size="large" >
+                        <Button onClick={() => this.sortBars()} id="sortButton" variant="contained">Sort</Button>
+                        <Button onClick={() => this.resetArray()} className="newArrayButton" variant="contained"> New Array</Button>
                     </ButtonGroup> 
                     </div>
                 <div className="array-container-right">
