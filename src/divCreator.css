@@ -56,10 +56,3 @@ a, a:hover, a:visited, a:active {
     text-decoration: none;
 }
 
-#sortButton {
-    margin-Bottom: 30; 
-    border-Radius: 10; 
-    background: "green";
-    color: "white"; 
-    border: "1px solid white";
-}

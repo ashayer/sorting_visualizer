@@ -61,7 +61,7 @@ function BottomAppBar() {
     const updateRightAlg = (e) => {
         setRightAlg(e.target.value);
     }
-    
+
     return (
 
         <div>
@@ -96,7 +96,7 @@ function BottomAppBar() {
             </div>
             <AppBar className={classes.bottomAppBar}>
                 <Toolbar className={classes.bottomToolBar}>
-                    <FormControl className={classes.algSelect}>
+                    <FormControl className={classes.algSelect} id="leftSelect">
                         <Select 
                             defaultValue= "M_SORT"
                             value = {currLeftAlg}
@@ -120,7 +120,7 @@ function BottomAppBar() {
                         onChange = {updateVal}
                         id="arraySlider"
                     />
-                    <FormControl className={classes.algSelect}>
+                    <FormControl className={classes.algSelect} id="rightSelect">
                         <Select 
                             defaultValue="Q_SORT"
                             value = {currRightAlg}

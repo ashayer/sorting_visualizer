@@ -8,7 +8,7 @@ const useStyles = makeStyles(() => ({
         bottom: 0,
     },
     topToolBar:{
-        justifyContent:"space-between",
+        justifyContent:"space-evenly",
     },
     topToolBarDiv:{
         borderBottom: "5px solid white",
@@ -56,7 +56,8 @@ const SpeedSlider = withStyles({
 const Title = withStyles({
     root: {
         width: "25%",
-    
+        marginLeft:"12%",
+        marginRight:"12%",
     },
 
 })(Typography);
