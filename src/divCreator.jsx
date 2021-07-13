@@ -1,7 +1,7 @@
 import React from "react";
 import "./divCreator.css";
 import {Button} from "@material-ui/core";
-import {ButtonGroup, Toolbar } from "@material-ui/core";
+import {ButtonGroup} from "@material-ui/core";
 import { sortDecider } from "./sortingAlgs";
 
 function randomIntegers(min,max){
@@ -69,7 +69,7 @@ export default class DivCreator extends React.Component{
                 this.bubbleSortAnimate(leftArray, "arrayBars");
                 break;
             case "H_SORT":
-                this.bubbleSortAnimate(leftArray, "arrayBars");
+                this.heapSortAnimate(leftArray, "arrayBars");
                 break;
             default:
     
@@ -92,7 +92,7 @@ export default class DivCreator extends React.Component{
                 this.bubbleSortAnimate(rightArray, "arrayBars2");
                 break;
             case "H_SORT":
-                this.bubbleSortAnimate(rightArray, "arrayBars2");
+                this.heapSortAnimate(rightArray, "arrayBars2");
                 break;
             default:
     
@@ -102,9 +102,7 @@ export default class DivCreator extends React.Component{
 
     bubbleSortAnimate(arr, side, props){
         let bars = document.getElementsByClassName(side);
-        
         let compares = arr[1];
-        
         for(let i =0; i<compares.length;i++){
             setTimeout(() => {
                 let currentCompare = compares[i];
@@ -125,7 +123,6 @@ export default class DivCreator extends React.Component{
         let bars = document.getElementsByClassName(side);
         
         let compares = arr[1];
-        console.log(compares);
         for(let i =0; i<compares.length;i++){
             setTimeout(() => {
                 let currentCompare = compares[i];
@@ -146,7 +143,6 @@ export default class DivCreator extends React.Component{
         let bars = document.getElementsByClassName(side);
         
         let compares = arr[1];
-        console.log(compares);
         for(let i =0; i<compares.length;i++){
             setTimeout(() => {
                 let currentCompare = compares[i];
@@ -162,6 +158,28 @@ export default class DivCreator extends React.Component{
             
         }
         
+    }
+
+    heapSortAnimate(arr,side, props){
+        let bars = document.getElementsByClassName(side);
+        
+        let compares = arr[1];
+        console.log(arr[0]);
+        console.log(compares);
+        for(let i =0; i<compares.length;i++){
+            setTimeout(() => {
+                let currentCompare = compares[i];
+                let tempHeight = bars[currentCompare[0]].clientHeight;
+                bars[currentCompare[0]].style.height = bars[currentCompare[1]].clientHeight + "px";
+                bars[currentCompare[1]].style.height = tempHeight + "px";
+                // if(((i+1) < compares.length) 
+                // && compares[i+1][1] < currentCompare[1]){
+                //     bars[currentCompare[1]].style.background = "black";
+                // }
+                this.animateFinish(side, i, arr);
+            }, i * this.props.speedVal);
+            
+        }
     }
     disableElements(props){
 

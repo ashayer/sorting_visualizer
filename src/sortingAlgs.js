@@ -81,24 +81,25 @@ function selectionSort(array){
 }
 
 function heapSort(array){
-    
-    for(let i =Math.floor(array.length / 2) - 1; i>=0; i--){
-        heapify(array, array.length, i);
+    let animationArray = [];
+
+    let size = array.length;
+    for(let i =Math.floor(size / 2) - 1; i>=0; i--){
+        heapify(array, size, i, animationArray);
     }
 
-    for(let i = array.length; i > 0;i--){
+    for(let i = size - 1; i > 0;i--){
         let temp = array[0];
         array[0] = array[i];
         array[i] = temp;
-
-        heapify(array, i, 0);
+        animationArray.push([0, i]);
+        heapify(array, i, 0, animationArray);
     }
-
-    console.log(array);
-
+    
+    return [array, animationArray];
 }
 
-function heapify(array, size, i){
+function heapify(array, size, i, animationArr){
     let root = i;
     let left = 2 * i + 1;
     let right = 2 * i + 2;
@@ -115,7 +116,8 @@ function heapify(array, size, i){
         let temp = array[i];
         array[i] = array[root];
         array[root] = temp;
-        heapify(array, size, root);
+        animationArr.push([root, i]);
+        heapify(array, size, root, animationArr);
     }
 
 }

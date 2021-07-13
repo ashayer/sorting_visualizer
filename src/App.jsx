@@ -42,8 +42,8 @@ const marks = [
 
 function BottomAppBar() {
     const [currVal, setVal] = React.useState(10);
-    const [currLeftAlg, setLeftAlg] = React.useState("I_SORT");
-    const [currRightAlg, setRightAlg] = React.useState("B_SORT");
+    const [currLeftAlg, setLeftAlg] = React.useState("H_SORT");
+    const [currRightAlg, setRightAlg] = React.useState("S_SORT");
     const [currSpeed, setSpeed] = React.useState(50);
     const updateSpeed = (e, data) => {
         setSpeed(data)
