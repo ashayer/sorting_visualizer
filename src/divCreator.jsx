@@ -57,7 +57,7 @@ export default class DivCreator extends React.Component{
                 this.bubbleSortAnimate(leftArray, "arrayBars");
                 break;
             case "M_SORT":
-                this.bubbleSortAnimate(leftArray, "arrayBars");
+                this.mergeSortAnimate(leftArray, "arrayBars");
                 break;
             case "I_SORT":
                 this.insertionSortAnimate(leftArray, "arrayBars");
@@ -66,7 +66,7 @@ export default class DivCreator extends React.Component{
                 this.selectionSortAnimate(leftArray, "arrayBars");
                 break;
             case "Q_SORT":
-                this.bubbleSortAnimate(leftArray, "arrayBars");
+                this.quickSortAnimate(leftArray, "arrayBars");
                 break;
             case "H_SORT":
                 this.heapSortAnimate(leftArray, "arrayBars");
@@ -80,7 +80,7 @@ export default class DivCreator extends React.Component{
                 this.bubbleSortAnimate(rightArray, "arrayBars2");
                 break;
             case "M_SORT":
-                this.bubbleSortAnimate(rightArray, "arrayBars2");
+                this.mergeSortAnimate(rightArray, "arrayBars2");
                 break;
             case "I_SORT":
                 this.insertionSortAnimate(rightArray, "arrayBars2");
@@ -89,7 +89,7 @@ export default class DivCreator extends React.Component{
                 this.selectionSortAnimate(rightArray, "arrayBars2");
                 break;
             case "Q_SORT":
-                this.bubbleSortAnimate(rightArray, "arrayBars2");
+                this.quickSortAnimate(rightArray, "arrayBars2");
                 break;
             case "H_SORT":
                 this.heapSortAnimate(rightArray, "arrayBars2");
@@ -143,6 +143,7 @@ export default class DivCreator extends React.Component{
         let bars = document.getElementsByClassName(side);
         
         let compares = arr[1];
+        console.log(compares);
         for(let i =0; i<compares.length;i++){
             setTimeout(() => {
                 let currentCompare = compares[i];
@@ -164,8 +165,6 @@ export default class DivCreator extends React.Component{
         let bars = document.getElementsByClassName(side);
         
         let compares = arr[1];
-        console.log(arr[0]);
-        console.log(compares);
         for(let i =0; i<compares.length;i++){
             setTimeout(() => {
                 let currentCompare = compares[i];
@@ -176,6 +175,40 @@ export default class DivCreator extends React.Component{
                 // && compares[i+1][1] < currentCompare[1]){
                 //     bars[currentCompare[1]].style.background = "black";
                 // }
+                this.animateFinish(side, i, arr);
+            }, i * this.props.speedVal);
+            
+        }
+    }
+    quickSortAnimate(arr,side, props){
+        let bars = document.getElementsByClassName(side);
+        
+        let compares = arr[1];
+        
+        
+        for(let i =0; i<compares.length;i++){
+            setTimeout(() => {
+                let currentCompare = compares[i];
+                let tempHeight = bars[currentCompare[0]].clientHeight;
+                bars[currentCompare[0]].style.height = bars[currentCompare[1]].clientHeight + "px";
+                bars[currentCompare[1]].style.height = tempHeight + "px";
+                this.animateFinish(side, i, arr);
+            }, i * this.props.speedVal);
+            
+        }
+    }
+    mergeSortAnimate(arr,side, props){
+        let bars = document.getElementsByClassName(side);
+        
+        let compares = arr[1];
+        console.log(arr[0]);
+        //console.log(compares);
+        for(let i =0; i<compares.length;i++){
+            setTimeout(() => {
+                let currentCompare = compares[i];
+                let tempHeight = bars[currentCompare[0]].clientHeight;
+                bars[currentCompare[0]].style.height = bars[currentCompare[1]].clientHeight + "px";
+                bars[currentCompare[1]].style.height = tempHeight + "px";
                 this.animateFinish(side, i, arr);
             }, i * this.props.speedVal);
             

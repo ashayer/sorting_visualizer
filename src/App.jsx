@@ -41,9 +41,9 @@ const marks = [
 ];
 
 function BottomAppBar() {
-    const [currVal, setVal] = React.useState(10);
-    const [currLeftAlg, setLeftAlg] = React.useState("H_SORT");
-    const [currRightAlg, setRightAlg] = React.useState("S_SORT");
+    const [currVal, setVal] = React.useState(150);
+    const [currLeftAlg, setLeftAlg] = React.useState("M_SORT");
+    const [currRightAlg, setRightAlg] = React.useState("Q_SORT");
     const [currSpeed, setSpeed] = React.useState(50);
     const updateSpeed = (e, data) => {
         setSpeed(data)
@@ -112,10 +112,10 @@ function BottomAppBar() {
                         </Select>
                     </FormControl>
                     <ArraySlider
-                        defaultValue = {10}
+                        defaultValue = {150}
                         step={5}
-                        min={10}
-                        max={300}
+                        min={50}
+                        max={500}
                         valueLabelDisplay="auto"
                         value = {currVal}
                         onChange = {updateVal}
