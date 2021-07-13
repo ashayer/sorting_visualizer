@@ -1,7 +1,7 @@
 import React from "react";
 import "./divCreator.css";
 import {Button} from "@material-ui/core";
-import {ButtonGroup } from "@material-ui/core";
+import {ButtonGroup, Toolbar } from "@material-ui/core";
 import { sortDecider } from "./sortingAlgs";
 
 function randomIntegers(min,max){
@@ -51,8 +51,6 @@ export default class DivCreator extends React.Component{
         this.disableElements();
         const leftArray = sortDecider(this.state.array, this.props.leftAlgSelect);
         const rightArray = sortDecider(this.state.array2, this.props.rightAlgSelect);
-       
-        console.log(this.props.rightAlgSelect);
 
         switch(this.props.leftAlgSelect){
             case "B_SORT":
@@ -60,19 +58,19 @@ export default class DivCreator extends React.Component{
                 break;
             case "M_SORT":
                 this.bubbleSortAnimate(leftArray, "arrayBars");
-                break
+                break;
             case "I_SORT":
-                this.bubbleSortAnimate(leftArray, "arrayBars");
-                break
+                this.insertionSortAnimate(leftArray, "arrayBars");
+                break;
             case "S_SORT":
-                this.bubbleSortAnimate(leftArray, "arrayBars");
-                break
+                this.selectionSortAnimate(leftArray, "arrayBars");
+                break;
             case "Q_SORT":
                 this.bubbleSortAnimate(leftArray, "arrayBars");
-                break
+                break;
             case "H_SORT":
                 this.bubbleSortAnimate(leftArray, "arrayBars");
-                break
+                break;
             default:
     
         }
@@ -83,19 +81,19 @@ export default class DivCreator extends React.Component{
                 break;
             case "M_SORT":
                 this.bubbleSortAnimate(rightArray, "arrayBars2");
-                break
+                break;
             case "I_SORT":
-                this.bubbleSortAnimate(rightArray, "arrayBars2");
-                break
+                this.insertionSortAnimate(rightArray, "arrayBars2");
+                break;
             case "S_SORT":
-                this.bubbleSortAnimate(rightArray, "arrayBars2");
-                break
+                this.selectionSortAnimate(rightArray, "arrayBars2");
+                break;
             case "Q_SORT":
                 this.bubbleSortAnimate(rightArray, "arrayBars2");
-                break
+                break;
             case "H_SORT":
                 this.bubbleSortAnimate(rightArray, "arrayBars2");
-                break
+                break;
             default:
     
         }
@@ -113,10 +111,52 @@ export default class DivCreator extends React.Component{
                 let tempHeight = bars[currentCompare[0]].clientHeight;
                 bars[currentCompare[0]].style.height = bars[currentCompare[1]].clientHeight + "px";
                 bars[currentCompare[1]].style.height = tempHeight + "px";
-                if(((i+1) < compares.length) 
-                && compares[i+1][1] < currentCompare[1]){
-                    bars[currentCompare[1]].style.background = "black";
-                }
+                // if(((i+1) < compares.length) 
+                // && compares[i+1][1] < currentCompare[1]){
+                //     bars[currentCompare[1]].style.background = "black";
+                // }
+                this.animateFinish(side, i, arr);
+            }, i * this.props.speedVal);
+            
+        }
+        
+    }
+    insertionSortAnimate(arr, side, props){
+        let bars = document.getElementsByClassName(side);
+        
+        let compares = arr[1];
+        console.log(compares);
+        for(let i =0; i<compares.length;i++){
+            setTimeout(() => {
+                let currentCompare = compares[i];
+                let tempHeight = bars[currentCompare[0]].clientHeight;
+                bars[currentCompare[0]].style.height = bars[currentCompare[1]].clientHeight + "px";
+                bars[currentCompare[1]].style.height = tempHeight + "px";
+                // if(((i+1) < compares.length) 
+                // && compares[i+1][1] < currentCompare[1]){
+                //     bars[currentCompare[1]].style.background = "black";
+                // }
+                this.animateFinish(side, i, arr);
+            }, i * this.props.speedVal);
+            
+        }
+        
+    }
+    selectionSortAnimate(arr, side, props){
+        let bars = document.getElementsByClassName(side);
+        
+        let compares = arr[1];
+        console.log(compares);
+        for(let i =0; i<compares.length;i++){
+            setTimeout(() => {
+                let currentCompare = compares[i];
+                let tempHeight = bars[currentCompare[0]].clientHeight;
+                bars[currentCompare[0]].style.height = bars[currentCompare[1]].clientHeight + "px";
+                bars[currentCompare[1]].style.height = tempHeight + "px";
+                // if(((i+1) < compares.length) 
+                // && compares[i+1][1] < currentCompare[1]){
+                //     bars[currentCompare[1]].style.background = "black";
+                // }
                 this.animateFinish(side, i, arr);
             }, i * this.props.speedVal);
             
@@ -128,11 +168,15 @@ export default class DivCreator extends React.Component{
         document.getElementById("centerBox").style.visibility = "hidden";
         document.getElementById("speedSlider").style.visibility = "hidden";
         document.getElementById("arraySlider").style.visibility = "hidden";
+        document.getElementById("leftSelect").style.visibility = "hidden";
+        document.getElementById("rightSelect").style.visibility = "hidden";
     }
     enableElements(props){
         document.getElementById("centerBox").style.visibility = "visible";
         document.getElementById("speedSlider").style.visibility = "visible";
         document.getElementById("arraySlider").style.visibility = "visible";
+        document.getElementById("leftSelect").style.visibility = "visible";
+        document.getElementById("rightSelect").style.visibility = "visible";
 
     }
     animateFinish(side, i, arr,props){
@@ -142,7 +186,7 @@ export default class DivCreator extends React.Component{
             for(let i =0; i<bars.length;i++){
                 setTimeout(() => {
                     bars[i].style.background = "green";
-                }, i * this.props.speedVal);
+                }, i * 5);
                 
             }
 
@@ -168,7 +212,7 @@ export default class DivCreator extends React.Component{
                         ))}
                 </div>
                     <div className="centerBox" id="centerBox">
-                    <ButtonGroup orientation="vertical" size="large" >
+                    <ButtonGroup size="large" orientation="vertical" >
                         <Button onClick={() => this.sortBars()} id="sortButton" variant="contained">Sort</Button>
                         <Button onClick={() => this.resetArray()} className="newArrayButton" variant="contained"> New Array</Button>
                     </ButtonGroup> 

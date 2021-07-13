@@ -42,9 +42,9 @@ const marks = [
 
 function BottomAppBar() {
     const [currVal, setVal] = React.useState(10);
-    const [currLeftAlg, setLeftAlg] = React.useState("B_SORT");
+    const [currLeftAlg, setLeftAlg] = React.useState("I_SORT");
     const [currRightAlg, setRightAlg] = React.useState("B_SORT");
-    const [currSpeed, setSpeed] = React.useState(25);
+    const [currSpeed, setSpeed] = React.useState(50);
     const updateSpeed = (e, data) => {
         setSpeed(data)
     }
@@ -101,6 +101,7 @@ function BottomAppBar() {
                             defaultValue= "M_SORT"
                             value = {currLeftAlg}
                             onChange = {updateLeftAlg}
+                            id = "leftSelect"
                         >
                             <MenuItem value = {"M_SORT"}>Merge Sort</MenuItem>
                             <MenuItem value = {"I_SORT"}>Insertion Sort</MenuItem>
@@ -125,6 +126,7 @@ function BottomAppBar() {
                             defaultValue="Q_SORT"
                             value = {currRightAlg}
                             onChange = {updateRightAlg}
+                            id = "rightSelect"
                         >
                             <MenuItem value = {"M_SORT"}>Merge Sort</MenuItem>
                             <MenuItem value = {"I_SORT"}>Insertion Sort</MenuItem>
