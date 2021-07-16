@@ -1,6 +1,4 @@
 
-
-
 export function sortDecider(array, value){
     switch(value){
         case "B_SORT":
@@ -22,6 +20,9 @@ export function sortDecider(array, value){
 }
 
 function bubbleSort(array){
+    let bars = document.getElementsByClassName("arrayBars");
+    bars[75].style.background = "blue";
+    
     let size = array.length;
     let animationArray = [];
     for(let i = 0; i < size;i++){
@@ -64,8 +65,10 @@ function selectionSort(array){
     for(let i = 0;i<array.length-1;i++){
         let min = i;
         for(let j = i + 1; j <array.length; j++){
+            animationArray.push([min, j])
             if(array[j] < array[min]){
                 min = j;
+                
             }
             
         }

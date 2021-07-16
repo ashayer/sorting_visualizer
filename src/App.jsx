@@ -41,9 +41,9 @@ const marks = [
 ];
 
 function BottomAppBar() {
-    const [currVal, setVal] = React.useState(150);
-    const [currLeftAlg, setLeftAlg] = React.useState("M_SORT");
-    const [currRightAlg, setRightAlg] = React.useState("Q_SORT");
+    const [currVal, setVal] = React.useState(20);
+    const [currLeftAlg, setLeftAlg] = React.useState("B_SORT");
+    const [currRightAlg, setRightAlg] = React.useState("B_SORT");
     const [currSpeed, setSpeed] = React.useState(50);
     const updateSpeed = (e, data) => {
         setSpeed(data)
@@ -121,22 +121,6 @@ function BottomAppBar() {
                         onChange = {updateVal}
                         id="arraySlider"
                     />
-                    <FormControl className={classes.algSelect} id="rightSelect">
-                        <Select 
-                            defaultValue="Q_SORT"
-                            value = {currRightAlg}
-                            onChange = {updateRightAlg}
-                            id = "rightSelect"
-                        >
-                            <MenuItem value = {"M_SORT"}>Merge Sort</MenuItem>
-                            <MenuItem value = {"I_SORT"}>Insertion Sort</MenuItem>
-                            <MenuItem value = {"S_SORT"}>Selection Sort</MenuItem>
-                            <MenuItem value = {"Q_SORT"}>Quick Sort</MenuItem>
-                            <MenuItem value = {"B_SORT"}>Bubble Sort</MenuItem>
-                            <MenuItem value = {"H_SORT"}>Heap Sort</MenuItem>
-                        </Select>
-                    </FormControl>
-                    
                 </Toolbar>
             </AppBar>
 
