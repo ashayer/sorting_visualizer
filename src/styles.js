@@ -5,24 +5,18 @@ import { Slider } from "@material-ui/core";
 const useStyles = makeStyles(() => ({
     bottomAppBar: {
         top:"auto",
-        bottom: 0,
+        bottom: "auto",
     },
     topToolBar:{
         justifyContent:"space-evenly",
     },
-    topToolBarDiv:{
-        borderBottom: "5px solid white",
-    },
     bottomToolBar:{
-        justifyContent:"space-evenly",
+        justifyContent:"space-between",
     },
     algSelect:{
-        color:"white",
         backgroundColor:"white",
         borderRadius: 8,
         padding: 10,
-        paddingLeft: 40,
-        paddingRight: 40,
         width: "20%",
     },
 
@@ -31,7 +25,8 @@ const useStyles = makeStyles(() => ({
 const ArraySlider = withStyles({
     root: {
         color: "#ffa500",
-        width: "20%",
+        width: "35%",
+        marginRight: "18vh",
     },
     valueLabel:{
         color: "#000000"

@@ -7,101 +7,60 @@ import {FormControl, MenuItem, Select} from "@material-ui/core";
 import {ArraySlider,SpeedSlider, Title} from './styles';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import GitHubIcon from '@material-ui/icons/GitHub';
-import { Box } from "@material-ui/core";
+import { Box, ButtonGroup, Button } from "@material-ui/core";
 
-const marks = [
-    {
-      value: 1,
-      label: 'Fastest',
-    },
-    {
-      value: 5,
-    },
-    {
-      value: 10,
 
-    },
-    {
-      value: 25,
-    },
-    {
-      value: 50,
-      label: "Slow",
-      
-    },
-    {
-      value: 100,
-      label: "Slower",
-    },
-    {
-      value: 200,
-      label: "Slowest",
-    },
-
-];
-
-function BottomAppBar() {
-    const [currVal, setVal] = React.useState(20);
-    const [currLeftAlg, setLeftAlg] = React.useState("B_SORT");
-    const [currRightAlg, setRightAlg] = React.useState("B_SORT");
-    const [currSpeed, setSpeed] = React.useState(50);
+function AppBars() {
+    const classes = useStyles();
+    const [currSize, setSize] = React.useState(25);
+    const [currAlg, setAlg] = React.useState("S_SORT");
+    const [currSpeed, setSpeed] = React.useState(25);
     const updateSpeed = (e, data) => {
         setSpeed(data)
     }
-    const classes = useStyles();
 
-    const updateVal = (e, data) => {
-        setVal(data)
+    const updateSize = (e, data) => {
+        setSize(data)
     }
 
-    const updateLeftAlg = (e) => {
-        setLeftAlg(e.target.value);
-    }
-
-    const updateRightAlg = (e) => {
-        setRightAlg(e.target.value);
+    const updateAlg = (e) => {
+        setAlg(e.target.value);
     }
 
     return (
 
         <div>
-            <div className={classes.topToolBarDiv}>
-            <AppBar position="sticky" >
-            <Toolbar className={classes.topToolBar}>
-                <Box style= {{width: "25%"}}>
-                    <a target="_blank" rel="noreferrer" href='https://github.com/ashayer'><GitHubIcon fontSize= "large" style={{marginRight: "10%", marginLeft: "5%"}}></GitHubIcon></a>
-                    <a target="_blank" rel="noreferrer" href='https://www.linkedin.com/in/arandeep/'><LinkedInIcon fontSize= "large"></LinkedInIcon></a>
-                </Box>
-                <Title variant="h2">
-                Sorting Visualizer
-                </Title>
-                <div></div>
-                <SpeedSlider
-                    defaultValue = {25}
-                    step={null}
-                    min={1}
-                    max={225}
-                    valueLabelDisplay="off"
-                    className="speedSlider"
-                    marks={marks}
-                    track="inverted"
-                    value = {currSpeed}
-                    onChange = {updateSpeed}
-                    // value = {currVal}
-                    // onChange = {updateVal}
-                    id="speedSlider"
-                />
-            </Toolbar>
+            <div>
+            <AppBar position="sticky">
+                <Toolbar className={classes.topToolBar}>
+                    <Box style= {{width: "25%"}}>
+                        <a target="_blank" rel="noreferrer" href='https://github.com/ashayer'><GitHubIcon fontSize= "large" style={{marginRight: "10%", marginLeft: "5%"}}></GitHubIcon></a>
+                        <a target="_blank" rel="noreferrer" href='https://www.linkedin.com/in/arandeep/'><LinkedInIcon fontSize= "large"></LinkedInIcon></a>
+                    </Box>
+                    <Title variant="h2">
+                        Sorting Visualizer
+                    </Title>
+                    <div></div>
+                    <SpeedSlider
+                        defaultValue = {25}
+                        min={25}
+                        max={225}
+                        valueLabelDisplay="off"
+                        className="speedSlider"
+                        value = {currSpeed}
+                        onChange = {updateSpeed}
+                        id="speedSlider"
+                    />
+                </Toolbar>
             </AppBar> 
             </div>
             <AppBar className={classes.bottomAppBar}>
                 <Toolbar className={classes.bottomToolBar}>
-                    <FormControl className={classes.algSelect} id="leftSelect">
+                    <FormControl className={classes.algSelect}>
                         <Select 
-                            defaultValue= "M_SORT"
-                            value = {currLeftAlg}
-                            onChange = {updateLeftAlg}
-                            id = "leftSelect"
+                            defaultValue= "S_SORT"
+                            value = {currAlg}
+                            onChange = {updateAlg}
                         >
                             <MenuItem value = {"M_SORT"}>Merge Sort</MenuItem>
                             <MenuItem value = {"I_SORT"}>Insertion Sort</MenuItem>
@@ -112,19 +71,23 @@ function BottomAppBar() {
                         </Select>
                     </FormControl>
                     <ArraySlider
-                        defaultValue = {150}
+                        defaultValue = {25}
                         step={5}
-                        min={50}
-                        max={500}
-                        valueLabelDisplay="auto"
-                        value = {currVal}
-                        onChange = {updateVal}
+                        min={25}
+                        max={100}
+                        valueLabelDisplay="off"
+                        value = {currSize}
+                        onChange = {updateSize}
                         id="arraySlider"
                     />
+                    <ButtonGroup size="large">
+                        <Button id="sortButton" variant="contained">Sort</Button>
+                        <Button className="newArrayButton" variant="contained">New Array</Button>
+                    </ButtonGroup>
                 </Toolbar>
             </AppBar>
 
-            <DivCreator sliderVal = {currVal} leftAlgSelect = {currLeftAlg} rightAlgSelect = {currRightAlg} speedVal = {currSpeed}/>
+            <DivCreator sliderVal = {currSize} algSelect = {currAlg} speedVal = {currSpeed}/>
 
         </div>
     );
@@ -133,7 +96,7 @@ function BottomAppBar() {
 export default class App extends React.Component {
     render() {
         return(
-            <BottomAppBar/>
+            <AppBars/>
         );
     }
     

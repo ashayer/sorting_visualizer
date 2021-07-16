@@ -1,7 +1,5 @@
 import React from "react";
 import "./divCreator.css";
-import {Button} from "@material-ui/core";
-import {ButtonGroup} from "@material-ui/core";
 import { sortDecider } from "./sortingAlgs";
 
 function randomIntegers(min,max){
@@ -37,7 +35,7 @@ export default class DivCreator extends React.Component{
 
     }
     sortBars(props){
-        const leftArray = sortDecider(this.state.array, this.props.leftAlgSelect);
+        const leftArray = sortDecider(this.state.array, this.props.algSelect);
     }
 
     render() {
@@ -46,15 +44,9 @@ export default class DivCreator extends React.Component{
             <div>
                 <div className="array-container-left" >
                         {array.map((value, idx) => ( /* */
-                            <div className="arrayBars" key ={idx} style={{height: value + "%"}}>
+                            <div className="arrayBars" key ={idx} style={{height: value + "%",}}>
                             </div>
                         ))}
-                </div>
-                <div className="centerBox" id="centerBox">
-                <ButtonGroup size="large" orientation="vertical" >
-                    <Button onClick={() => this.sortBars()} id="sortButton" variant="contained">Sort</Button>
-                    <Button onClick={() => this.resetArray()} className="newArrayButton" variant="contained"> New Array</Button>
-                </ButtonGroup>
                 </div>
             </div>
 
