@@ -1,16 +1,14 @@
 import React from "react";
-import {AppBar,Toolbar} from "@material-ui/core";
+import {AppBar,Toolbar, FormControl, MenuItem, Select, Box, Button, ButtonGroup} from "@material-ui/core";
 import {useStyles} from "./styles";
 import DivCreator from "./divCreator";
 import './divCreator.css';
-import {FormControl, MenuItem, Select} from "@material-ui/core";
 import {ArraySlider,SpeedSlider, Title} from './styles';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import GitHubIcon from '@material-ui/icons/GitHub';
-import { Box, ButtonGroup, Button } from "@material-ui/core";
 
 
-function AppBars() {
+function AppBars(props) {
     const classes = useStyles();
     const [currSize, setSize] = React.useState(25);
     const [currAlg, setAlg] = React.useState("S_SORT");
@@ -75,16 +73,13 @@ function AppBars() {
                         step={5}
                         min={25}
                         max={100}
-                        valueLabelDisplay="off"
+                        valueLabelDisplay="auto"
                         value = {currSize}
                         onChange = {updateSize}
                         id="arraySlider"
                     />
-                    <ButtonGroup size="large">
-                        <Button id="sortButton" variant="contained">Sort</Button>
-                        <Button className="newArrayButton" variant="contained">New Array</Button>
-                    </ButtonGroup>
                 </Toolbar>
+                
             </AppBar>
 
             <DivCreator sliderVal = {currSize} algSelect = {currAlg} speedVal = {currSpeed}/>

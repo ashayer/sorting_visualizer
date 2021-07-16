@@ -1,7 +1,7 @@
 import React from "react";
 import "./divCreator.css";
-import { sortDecider } from "./sortingAlgs";
-
+import { sortDecider } from "./sortingAlgorithms";
+import { Button, ButtonGroup } from "@material-ui/core";
 function randomIntegers(min,max){
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
@@ -10,8 +10,10 @@ export default class DivCreator extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            array: [],
+            array: new Array(25),
         };
+
+        this.resetArray = this.resetArray.bind(this);
 
     }
     componentDidMount(){
@@ -22,32 +24,39 @@ export default class DivCreator extends React.Component{
             this.resetArray();
         }
     }
-    resetArray() {
-        const array = [];
 
+    resetArray() {
+        const tempArray = [];
         for(let i=0;i< this.props.sliderVal; i++){
-            array.push(randomIntegers(1,98));
+            tempArray.push(randomIntegers(1,100));
 
         }
         this.setState((state, props) => {
-            return {array: array}
+            
+            return {array: tempArray}
+            
         })
-
     }
+
     sortBars(props){
-        const leftArray = sortDecider(this.state.array, this.props.algSelect);
+        sortDecider(this.state.array, this.props.algSelect);
     }
 
     render() {
         const {array} = this.state;
         return (
             <div>
-                <div className="array-container-left" >
-                        {array.map((value, idx) => ( /* */
+                <div className="barContainer">
+                    {array.map((value, idx) => 
+                        (
                             <div className="arrayBars" key ={idx} style={{height: value + "%",}}>
                             </div>
                         ))}
                 </div>
+                <ButtonGroup size="large">
+                        <Button onClick={() => this.sortBars()} id="sortButton" variant="contained">Sort</Button>
+                        <Button onClick={() => this.resetArray()} className="newArrayButton" variant="contained"> New Array</Button>
+                </ButtonGroup>
             </div>
 
         );

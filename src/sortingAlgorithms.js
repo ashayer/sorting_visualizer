@@ -1,3 +1,4 @@
+let delay = 50;
 
 export function sortDecider(array, value){
     switch(value){
@@ -17,6 +18,50 @@ export function sortDecider(array, value){
         default:
 
     }
+}
+
+function swap(barOne, barTwo){
+    let temp = barOne.clientHeight;
+    barOne.style.height = barTwo.clientHeight + "px";
+    barTwo.style.height = temp + "px"; 
+}
+
+async function selectionSort(array){
+    let bars = document.getElementsByClassName("arrayBars");
+    for(let i = 0;i<array.length;i++){
+        let min = i;
+        bars[i].style.background = "white";
+        for(let j = i + 1; j <array.length; j++){
+            bars[j].style.background = "blue";
+            await waitforme(delay);
+
+            if(array[j] < array[min]){
+                if(min !== i ){
+                    bars[min].style.background = "orange";
+                }
+                min = j;
+                bars[min].style.background = "purple";
+            } 
+            else{
+                bars[j].style.background = "orange";
+            } 
+        }
+
+        await waitforme(delay);
+
+        let temp = array[i];
+        array[i] = array[min];
+        array[min] = temp;
+
+        swap(bars[i], bars[min]);
+
+        bars[min].style.background = "orange";
+
+        bars[i].style.background = 'green';
+    }
+
+    return array;
+    
 }
 
 function bubbleSort(array){
@@ -60,28 +105,6 @@ function insertionSort(array){
     return [array,animationArray];
 }
 
-function selectionSort(array){
-    let animationArray = [];
-    for(let i = 0;i<array.length-1;i++){
-        let min = i;
-        for(let j = i + 1; j <array.length; j++){
-            animationArray.push([min, j])
-            if(array[j] < array[min]){
-                min = j;
-                
-            }
-            
-        }
-        let temp = array[i];
-        array[i] = array[min];
-        array[min] = temp;
-        animationArray.push([i, min])
-
-    }
-
-    return [array, animationArray];
-    
-}
 
 function heapSort(array){
     let animationArray = [];
@@ -219,4 +242,11 @@ function mergeSort(array, left, right, animation){
     }
     console.log(test);
     return [array, animationArray];
+}
+
+
+function waitforme(milisec) { 
+    return new Promise(resolve => { 
+        setTimeout(() => { resolve('') }, milisec); 
+    }) 
 }

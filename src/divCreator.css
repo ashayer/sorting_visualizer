@@ -1,4 +1,4 @@
-.array-container-left{
+.barContainer{
     position: relative;
     width: 95%;
     height: 80vh;
@@ -6,12 +6,13 @@
     display: flex;
     margin: 7vh 5vh 0vh 5vh;
 }
+
 .arrayBars{
     background-color: orange;
     margin: 0px 1px 0px 1px;
     flex: 1;
     border-radius: 0px 0px 3vh 3vh;
-    transition: all 0.5s;
+    transition: all 0.5s; 
 }
 
 a, a:hover, a:visited, a:active {
