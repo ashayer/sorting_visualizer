@@ -25,7 +25,7 @@ const useStyles = makeStyles(() => ({
 const ArraySlider = withStyles({
     root: {
         color: "#ffa500",
-        width: "35%",
+        width: "100%",
         marginRight: "18vh",
     },
     valueLabel:{
@@ -37,7 +37,7 @@ const ArraySlider = withStyles({
 const SpeedSlider = withStyles({
     root: {
         color: "#ffa500",
-        width: "25%",
+        width: "100%",
     },
     valueLabel:{
         color: "#000000"

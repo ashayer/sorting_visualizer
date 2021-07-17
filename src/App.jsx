@@ -11,13 +11,13 @@ function randomIntegers(min,max){
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-
 function AppBars(props) {
     const classes = useStyles();
     const [currArray, setArray] = useState([]);
     const [currSize, setSize] = React.useState(25);
     const [currAlg, setAlg] = React.useState("S_SORT");
     const [currSpeed, setSpeed] = React.useState(25);
+
 
 
     const updateSpeed = (e, data) => {
@@ -69,7 +69,7 @@ function AppBars(props) {
                     <Title variant="h2">
                         Sorting Visualizer
                     </Title>
-                    <Grid>
+                    <Grid className="speedGrid" align="center">
                         <Typography>Speed of sorting</Typography>
                         <SpeedSlider
                         defaultValue = {25}
@@ -102,7 +102,7 @@ function AppBars(props) {
                             <MenuItem value = {"H_SORT"}>Heap Sort</MenuItem>
                         </Select>
                     </FormControl>
-                    <Grid>
+                    <Grid className="sizeGrid" align="center"> 
                         <Typography variant="h5">
                             Size
                         </Typography>
