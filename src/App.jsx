@@ -3,6 +3,7 @@ import {AppBar,Toolbar, FormControl, MenuItem, Select, Box, Button, ButtonGroup,
 import {useStyles} from "./styles";
 import './divCreator.css';
 import { sortDecider } from "./sortingAlgorithms";
+import { setDelay } from "./sortingAlgorithms";
 import {ArraySlider,SpeedSlider, Title} from './styles';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import GitHubIcon from '@material-ui/icons/GitHub';
@@ -10,18 +11,38 @@ import GitHubIcon from '@material-ui/icons/GitHub';
 function randomIntegers(min,max){
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
+const marks = [
+    {
+        value: 500,
+        label: "Slowest",
+    },
+    {
+        value: 250,
+        label: "Normal",
+    },
+    {
+        value: 1,
+        label: "Fastest",
+    },
 
+]
 function AppBars(props) {
     const classes = useStyles();
     const [currArray, setArray] = useState([]);
     const [currSize, setSize] = React.useState(25);
     const [currAlg, setAlg] = React.useState("S_SORT");
-    const [currSpeed, setSpeed] = React.useState(25);
+    const [currSpeed, setSpeed] = React.useState(250);
 
+    const [isDisabled, setDisabled] = React.useState({disabled: false});
 
+    const updateDisable = (e,data) => {
+        setDisabled(data);
+    
+    }
 
     const updateSpeed = (e, data) => {
         setSpeed(data);
+        setDelay(data);
     }
 
     const updateSize = (e, data) => {
@@ -36,7 +57,7 @@ function AppBars(props) {
         function resetArray(){
             const tempArray = [];
             for(let i=0;i< currSize; i++){
-                tempArray.push(randomIntegers(1,100));
+                tempArray.push(randomIntegers(1,99));
             }
             setArray(tempArray);
         }
@@ -48,7 +69,7 @@ function AppBars(props) {
         
         const tempArray = [];
         for(let i=0;i< currSize; i++){
-            tempArray.push(randomIntegers(1,100));
+            tempArray.push(randomIntegers(1,99));
         }
         setArray(tempArray);
     }
@@ -60,7 +81,7 @@ function AppBars(props) {
     return (
         <div>
             <div>
-            <AppBar position="sticky">
+            <AppBar position="static">
                 <Toolbar className={classes.topToolBar}>
                     <Box style= {{width: "25%"}}>
                         <a target="_blank" rel="noreferrer" href='https://github.com/ashayer'><GitHubIcon fontSize= "large" style={{marginRight: "10%", marginLeft: "5%"}}></GitHubIcon></a>
@@ -70,29 +91,29 @@ function AppBars(props) {
                         Sorting Visualizer
                     </Title>
                     <Grid className="speedGrid" align="center">
-                        <Typography>Speed of sorting</Typography>
+                        <Typography variant="h5">Speed of sorting</Typography>
                         <SpeedSlider
-                        defaultValue = {25}
-                        min={25}
-                        max={225}
+                        defaultValue = {250}
+                        min={1}
+                        max={500}
                         valueLabelDisplay="off"
-                        className="speedSlider"
                         value = {currSpeed}
                         onChange = {updateSpeed}
-                        id="speedSlider"
+                        marks={marks}
                         />
                     </Grid>
                     
                 </Toolbar>
             </AppBar> 
             </div>
-            <AppBar className={classes.bottomAppBar} id="test">
+            <AppBar className={classes.bottomAppBar} id="test" >
                 <Toolbar className={classes.bottomToolBar}>
                     <FormControl className={classes.algSelect}>
                         <Select 
                             defaultValue= "S_SORT"
                             value = {currAlg}
                             onChange = {updateAlg}
+                           
                         >
                             <MenuItem value = {"M_SORT"}>Merge Sort</MenuItem>
                             <MenuItem value = {"I_SORT"}>Insertion Sort</MenuItem>
@@ -104,7 +125,7 @@ function AppBars(props) {
                     </FormControl>
                     <Grid className="sizeGrid" align="center"> 
                         <Typography variant="h5">
-                            Size
+                            Size of array
                         </Typography>
                         <ArraySlider
                             defaultValue = {25}
@@ -115,11 +136,12 @@ function AppBars(props) {
                             value = {currSize}
                             onChange = {updateSize}
                             id="arraySlider"
+                            disabled={!isDisabled}
                         />
                     </Grid>
                     
-                    <ButtonGroup size="large">
-                        <Button onClick={() => sortBars()} id="sortButton" variant="contained">Sort</Button>
+                    <ButtonGroup className="buttonGroup" onClick={() => updateDisable()} disabled={!isDisabled}>
+                        <Button onClick={() => sortBars()} id="sortButton" variant="contained" className="sortButton">Sort</Button>
                         <Button onClick={() => resetArray()} className="newArrayButton" variant="contained"> New Array</Button>
                     </ButtonGroup>
                 </Toolbar>  

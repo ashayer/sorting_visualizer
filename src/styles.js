@@ -4,8 +4,7 @@ import { Slider } from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
     bottomAppBar: {
-        top:"auto",
-        bottom: "auto",
+        top: "auto",
     },
     topToolBar:{
         justifyContent:"space-evenly",
@@ -17,7 +16,7 @@ const useStyles = makeStyles(() => ({
         backgroundColor:"white",
         borderRadius: 8,
         padding: 10,
-        width: "20%",
+        width: "25%",
     },
 
   }));

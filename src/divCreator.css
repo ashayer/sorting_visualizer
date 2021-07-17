@@ -1,7 +1,7 @@
 .barContainer{
     position: relative;
     width: 95%;
-    height: 80vh;
+    height: 70vh;
     text-align:center;
     display: flex;
     margin: 7vh 5vh 0vh 5vh;
@@ -37,3 +37,13 @@ a, a:hover, a:visited, a:active {
     width: 25%;
 }
 
+.buttonGroup{
+    width: 25%;
+}
+.newArrayButton {
+    width: 50%;
+}
+
+.sortButton{
+    width: 50%;;
+}

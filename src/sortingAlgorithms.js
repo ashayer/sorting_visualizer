@@ -1,4 +1,4 @@
-let delay = 250;
+let delay;
 
 export function sortDecider(array, value){
     switch(value){
@@ -6,11 +6,13 @@ export function sortDecider(array, value){
             return bubbleSort(array);
         case "M_SORT":
             // return mergeSort(array, 0, array.length-1, []);
-            return mergeSort(array);
+            //return mergeSort(array);
+            break;
         case "I_SORT":
             return insertionSort(array);
         case "S_SORT":
-            return selectionSort(array);
+            selectionSort(array);
+            break;
         case "Q_SORT":
             return quickSort(array, 0, array.length-1,[]);
         case "H_SORT":
@@ -20,10 +22,15 @@ export function sortDecider(array, value){
     }
 }
 
+export function setDelay(time){
+    return delay = time;
+
+}
+
 function swap(barOne, barTwo){
-    let temp = barOne.clientHeight;
-    barOne.style.height = barTwo.clientHeight + "px";
-    barTwo.style.height = temp + "px"; 
+    let temp = barOne.style.height;
+    barOne.style.height = barTwo.style.height;
+    barTwo.style.height = temp; 
 }
 
 async function selectionSort(array){
@@ -33,8 +40,10 @@ async function selectionSort(array){
         bars[i].style.background = "white";
         for(let j = i + 1; j <array.length; j++){
             bars[j].style.background = "blue";
+            console.log(delay);
             await wait(delay);
-
+            console.log(delay);
+            
             if(array[j] < array[min]){
                 if(min !== i ){
                     bars[min].style.background = "orange";
@@ -60,6 +69,7 @@ async function selectionSort(array){
         bars[i].style.background = 'green';
     }
 
+    console.log(array);
     return array;
     
 }
@@ -111,7 +121,7 @@ function heapSort(array){
 
     let size = array.length;
     for(let i =Math.floor(size / 2) - 1; i>=0; i--){
-        heapify(array, size, i, animationArray);
+        heap(array, size, i, animationArray);
     }
 
     for(let i = size - 1; i > 0;i--){
@@ -119,13 +129,13 @@ function heapSort(array){
         array[0] = array[i];
         array[i] = temp;
         animationArray.push([0, i]);
-        heapify(array, i, 0, animationArray);
+        heap(array, i, 0, animationArray);
     }
     
     return [array, animationArray];
 }
 
-function heapify(array, size, i, animationArr){
+function heap(array, size, i, animationArr){
     let root = i;
     let left = 2 * i + 1;
     let right = 2 * i + 2;
@@ -143,7 +153,7 @@ function heapify(array, size, i, animationArr){
         array[i] = array[root];
         array[root] = temp;
         animationArr.push([root, i]);
-        heapify(array, size, root, animationArr);
+        heap(array, size, root, animationArr);
     }
 
 }
@@ -179,71 +189,6 @@ function partition(array, low, high, animationArray){
     animationArray.push([i+1,high]);
     return(i+1);
 }
-
-function merge(array, left,middle,right, animationArray){
-    let n1 = middle - left + 1;
-    let n2 = right-middle;
-
-    let leftArray = new Array(n1);
-    let rightArray = new Array(n2);
-
-    
-
-    for(let i = 0; i<n1;i++){
-        leftArray[i] = array[left + i];
-    }
-    for(let j = 0; j < n2; j++){
-        rightArray[j] = array[middle + 1 + j];
-
-    }
-    let i, j = 0;
-    let k = left;
-
-    while(i < n1 && j < n2){
-        if(leftArray[i] <= rightArray[j]){
-            array[k] = leftArray[i];
-            i++;
-        }
-        else {
-            array[k] = rightArray[j];
-            j++;
-        }
-        k++;
-    }
-    while(i < n1){
-        array[k] = leftArray[i];
-        animationArray.push([k,i]);
-        i++;
-        k++;
-        
-    }
-
-    while(j < n2){
-        array[k] = rightArray[j];
-        animationArray.push([k,j]);
-        j++;
-        k++;
-       
-    }
-
-    
-}
-
-function mergeSort(array, left, right, animation){
-    let animationArray = animation;
-    let test;
-    if(left < right){
-    
-        let middle = Math.floor((left+right)/2);
-        mergeSort(array,left,middle,animationArray);
-        mergeSort(array, middle+1, right,animationArray);
-        test = merge(array, left,middle,right,animationArray);
-        
-    }
-    console.log(test);
-    return [array, animationArray];
-}
-
 
 function wait(time) { 
     return new Promise(resolve => { 
