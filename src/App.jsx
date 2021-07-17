@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {AppBar,Toolbar, FormControl, MenuItem, Select, Box, Button, ButtonGroup} from "@material-ui/core";
+import {AppBar,Toolbar, FormControl, MenuItem, Select, Box, Button, ButtonGroup, Typography, Grid} from "@material-ui/core";
 import {useStyles} from "./styles";
 import './divCreator.css';
 import { sortDecider } from "./sortingAlgorithms";
@@ -51,7 +51,6 @@ function AppBars(props) {
             tempArray.push(randomIntegers(1,100));
         }
         setArray(tempArray);
-        console.log(tempArray);
     }
 
     function sortBars(){
@@ -70,8 +69,9 @@ function AppBars(props) {
                     <Title variant="h2">
                         Sorting Visualizer
                     </Title>
-                    <div></div>
-                    <SpeedSlider
+                    <Grid>
+                        <Typography>Speed of sorting</Typography>
+                        <SpeedSlider
                         defaultValue = {25}
                         min={25}
                         max={225}
@@ -80,7 +80,9 @@ function AppBars(props) {
                         value = {currSpeed}
                         onChange = {updateSpeed}
                         id="speedSlider"
-                    />
+                        />
+                    </Grid>
+                    
                 </Toolbar>
             </AppBar> 
             </div>
@@ -100,20 +102,26 @@ function AppBars(props) {
                             <MenuItem value = {"H_SORT"}>Heap Sort</MenuItem>
                         </Select>
                     </FormControl>
-                    <ArraySlider
-                        defaultValue = {25}
-                        step={5}
-                        min={25}
-                        max={100}
-                        valueLabelDisplay="auto"
-                        value = {currSize}
-                        onChange = {updateSize}
-                        id="arraySlider"
-                    />
+                    <Grid>
+                        <Typography variant="h5">
+                            Size
+                        </Typography>
+                        <ArraySlider
+                            defaultValue = {25}
+                            step={5}
+                            min={25}
+                            max={100}
+                            valueLabelDisplay="auto"
+                            value = {currSize}
+                            onChange = {updateSize}
+                            id="arraySlider"
+                        />
+                    </Grid>
+                    
                     <ButtonGroup size="large">
                         <Button onClick={() => sortBars()} id="sortButton" variant="contained">Sort</Button>
                         <Button onClick={() => resetArray()} className="newArrayButton" variant="contained"> New Array</Button>
-                </ButtonGroup>
+                    </ButtonGroup>
                 </Toolbar>  
                 
             </AppBar>
