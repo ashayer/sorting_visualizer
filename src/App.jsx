@@ -1,32 +1,64 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {AppBar,Toolbar, FormControl, MenuItem, Select, Box, Button, ButtonGroup} from "@material-ui/core";
 import {useStyles} from "./styles";
-import DivCreator from "./divCreator";
 import './divCreator.css';
+import { sortDecider } from "./sortingAlgorithms";
 import {ArraySlider,SpeedSlider, Title} from './styles';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import GitHubIcon from '@material-ui/icons/GitHub';
 
+function randomIntegers(min,max){
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
 
 function AppBars(props) {
     const classes = useStyles();
+    const [currArray, setArray] = useState([]);
     const [currSize, setSize] = React.useState(25);
     const [currAlg, setAlg] = React.useState("S_SORT");
     const [currSpeed, setSpeed] = React.useState(25);
+
+
     const updateSpeed = (e, data) => {
-        setSpeed(data)
+        setSpeed(data);
     }
 
     const updateSize = (e, data) => {
-        setSize(data)
+        setSize(data);
     }
 
     const updateAlg = (e) => {
         setAlg(e.target.value);
     }
 
-    return (
+    useEffect(() => {
+        function resetArray(){
+            const tempArray = [];
+            for(let i=0;i< currSize; i++){
+                tempArray.push(randomIntegers(1,100));
+            }
+            setArray(tempArray);
+        }
+        resetArray();
 
+    }, [currSize]);
+
+    function resetArray(){
+        
+        const tempArray = [];
+        for(let i=0;i< currSize; i++){
+            tempArray.push(randomIntegers(1,100));
+        }
+        setArray(tempArray);
+        console.log(tempArray);
+    }
+
+    function sortBars(){
+        sortDecider(currArray, currAlg);
+    }
+
+    return (
         <div>
             <div>
             <AppBar position="sticky">
@@ -52,7 +84,7 @@ function AppBars(props) {
                 </Toolbar>
             </AppBar> 
             </div>
-            <AppBar className={classes.bottomAppBar}>
+            <AppBar className={classes.bottomAppBar} id="test">
                 <Toolbar className={classes.bottomToolBar}>
                     <FormControl className={classes.algSelect}>
                         <Select 
@@ -78,11 +110,20 @@ function AppBars(props) {
                         onChange = {updateSize}
                         id="arraySlider"
                     />
-                </Toolbar>
+                    <ButtonGroup size="large">
+                        <Button onClick={() => sortBars()} id="sortButton" variant="contained">Sort</Button>
+                        <Button onClick={() => resetArray()} className="newArrayButton" variant="contained"> New Array</Button>
+                </ButtonGroup>
+                </Toolbar>  
                 
             </AppBar>
-
-            <DivCreator sliderVal = {currSize} algSelect = {currAlg} speedVal = {currSpeed}/>
+            <div className="barContainer">
+                {currArray.map((value, idx) => 
+                    (
+                        <div className="arrayBars" key ={idx} style={{height: value + "%",}}>
+                        </div>
+                    ))}
+            </div>
 
         </div>
     );

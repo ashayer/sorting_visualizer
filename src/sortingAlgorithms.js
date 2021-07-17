@@ -1,4 +1,4 @@
-let delay = 50;
+let delay = 250;
 
 export function sortDecider(array, value){
     switch(value){
@@ -33,7 +33,7 @@ async function selectionSort(array){
         bars[i].style.background = "white";
         for(let j = i + 1; j <array.length; j++){
             bars[j].style.background = "blue";
-            await waitforme(delay);
+            await wait(delay);
 
             if(array[j] < array[min]){
                 if(min !== i ){
@@ -47,7 +47,7 @@ async function selectionSort(array){
             } 
         }
 
-        await waitforme(delay);
+        await wait(delay);
 
         let temp = array[i];
         array[i] = array[min];
@@ -245,8 +245,8 @@ function mergeSort(array, left, right, animation){
 }
 
 
-function waitforme(milisec) { 
+function wait(time) { 
     return new Promise(resolve => { 
-        setTimeout(() => { resolve('') }, milisec); 
+        setTimeout(() => { resolve('resolved') }, time); 
     }) 
 }
