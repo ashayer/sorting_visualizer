@@ -43,15 +43,15 @@ export default function AppBars(props) {
     const classes = useStyles();
     const [currArray, setArray] = useState([]);
     const [currSize, setSize] = useState(25);
-    const [currAlg, setAlg] = useState("B_SORT");
+    const [currAlg, setAlg] = useState("I_SORT");
     const [currSpeed, setSpeed] = useState(250);
     const [history, setHistory] = useState([]);
     const [historyIdx, setHistoryIdx] = useState(0);
 
 
-    const [isDisabled, setDisabled] = React.useState({disabled: false});
+    const [isDisabled, setDisabled] = useState({disabled: false});
 
-    const [isNotDisabled, setNotDisabled] = React.useState({disabled: false});
+    const [isNotDisabled, setNotDisabled] = useState({isDisabled: false});
 
     const updateDisable = (e,data) => {
         setDisabled(data);
@@ -202,7 +202,7 @@ export default function AppBars(props) {
                         </Typography>
                     <HistorySlider
                         defaultValue={0}
-                        min={0}
+                        min={1}
                         max={currSize-1}
                         step = {1}
                         valueLabelDisplay="auto"

@@ -4,22 +4,19 @@ export async function sortDecider(array, alg){
     switch(alg){
         case "B_SORT":
             return bubbleSort(array).then(token => {return token});
-            break;
         case "M_SORT":
             // return mergeSort(array, 0, array.length-1, []);
             //return mergeSort(array);
             break;
         case "I_SORT":
-            //return insertionSort(array);
-            break;
+            return insertionSort(array).then(token => {return token});
         case "S_SORT":
             return selectionSort(array).then(token => {return token});
         case "Q_SORT":
             //return quickSort(array, 0, array.length-1,[]);
             break;
         case "H_SORT":
-            //return heapSort(array);
-            break;
+            return heapSort(array);
         default:
 
     }
@@ -125,65 +122,93 @@ async function bubbleSort(array){
     return [array,history];
 }
 
-// function insertionSort(array){
-//     let i,key, j;
-//     let animationArray = [];
-//     for(i = 1;i<array.length;i++){
-//         key = array[i];
-//         j = i -1;
-//         while(j >= 0 && array[j] > key){
-//             array[j+1] = array[j];
+async function insertionSort(array){
+    let bars = document.getElementsByClassName("arrayBars");
+    let i,j,key;
+    let history = [];
 
-//             animationArray.push([j,j+1]);
-//             j = j - 1;
-//         }
-//         array[j+1] = key;   
-//     }
-//     return [array,animationArray];
-// }
+    bars[0].style.background = "green";
+    history.push(array.slice());
+
+    for(i = 1;i<array.length;i++){
+
+        bars[i].style.background = "white";
+        key = array[i];
+        j = i - 1;
+        
+        await wait(delay);
+
+        while(j >= 0 && array[j] > key){
+            
+            bars[j].style.background = "purple";
+
+            swap(bars[j], bars[j+1]);
+;
+            array[j+1] = array[j];
+
+            j = j - 1;
+
+            await wait(delay);
+
+            for(let sorted = i; sorted >=0 ;sorted--){
+                bars[sorted].style.background = "green";
+            }
+
+        }
+        array[j+1] = key;
+
+        bars[i].style.background = "green";
+
+        history.push(array.slice());
 
 
-// function heapSort(array){
-//     let animationArray = [];
+    }
 
-//     let size = array.length;
-//     for(let i =Math.floor(size / 2) - 1; i>=0; i--){
-//         heap(array, size, i, animationArray);
-//     }
+    return [array,history];
+}
 
-//     for(let i = size - 1; i > 0;i--){
-//         let temp = array[0];
-//         array[0] = array[i];
-//         array[i] = temp;
-//         animationArray.push([0, i]);
-//         heap(array, i, 0, animationArray);
-//     }
+
+function heapSort(array){
+    let history = [];
+
+    let size = array.length;
+    for(let i =Math.floor(size / 2) - 1; i>=0; i--){
+        heap(array, size, i, history);
+    }
+
+    for(let i = size - 1; i > 0;i--){
+        let temp = array[0];
+        array[0] = array[i];
+        array[i] = temp;
+        //animationArray.push([0, i]);
+        heap(array, i, 0, history);
+    }
     
-//     return [array, animationArray];
-// }
+    return [array, history];
+}
 
-// function heap(array, size, i, animationArr){
-//     let root = i;
-//     let left = 2 * i + 1;
-//     let right = 2 * i + 2;
+function heap(array, size, i, historyArr){
+    let root = i;
+    let left = 2 * i + 1;
+    let right = 2 * i + 2;
 
-//     if(left < size && array[left] > array[root]){
-//         root = left;
-//     }
+    if(left < size && array[left] > array[root]){
+        root = left;
+    }
 
-//     if(right < size && array[right] > array[root]){
-//         root = right;
-//     }
+    if(right < size && array[right] > array[root]){
+        root = right;
+    }
 
-//     if(root !== i){
-//         let temp = array[i];
-//         array[i] = array[root];
-//         array[root] = temp;
-//         animationArr.push([root, i]);
-//         heap(array, size, root, animationArr);
-//     }
+    if(root !== i){
+        let temp = array[i];
+        array[i] = array[root];
+        array[root] = temp;
+        //animationArr.push([root, i]);
+        heap(array, size, root, historyArr);
+    }
 
-// }
+}
 
 // function quickSort(array, low, high, animationArray){
 //     let animationsArray = animationArray;
