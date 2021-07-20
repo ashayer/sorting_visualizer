@@ -12,6 +12,11 @@ const useStyles = makeStyles(() => ({
     bottomToolBar:{
         justifyContent:"space-between",
     },
+    lowestAppBar:{
+        bottom:0,
+        top: "auto",
+
+    },
     algSelect:{
         backgroundColor:"white",
         borderRadius: 8,
@@ -47,6 +52,20 @@ const SpeedSlider = withStyles({
 
 })(Slider);
 
+const HistorySlider = withStyles({
+    root: {
+        color: "#ffa500",
+        width: "50%",
+    },
+    valueLabel:{
+        color: "#000000"
+    },
+    markLabel: {
+        color: "white",
+    }
+
+})(Slider);
+
 const Title = withStyles({
     root: {
         width: "25%",
@@ -60,5 +79,6 @@ export {
     useStyles,
     ArraySlider,
     SpeedSlider,
+    HistorySlider,
     Title,
 }
