@@ -82,7 +82,7 @@ async function selectionSort(array){
 
         swap(bars[i], bars[min]);
         bars[min].style.background = "orange";
-        //bars[i].style.background = 'green';
+        bars[i].style.background = 'green';
         
     }
 

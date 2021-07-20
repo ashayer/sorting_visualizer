@@ -3,7 +3,7 @@ import {AppBar,Toolbar, FormControl, MenuItem, Select, Box, Button, ButtonGroup,
 import './divCreator.css';
 import { sortDecider } from "./sortingAlgorithms";
 import { setDelay } from "./sortingAlgorithms";
-import {ArraySlider,SpeedSlider,Title, useStyles} from './styles';
+import {ArraySlider,SpeedSlider,Title, useStyles, HistorySlider} from './styles';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import "./sortingAlgorithms";
@@ -26,21 +26,28 @@ const marks = [
 
 ]
 
-const HistoryMarks = [
-    {
-        value: 0,
-        label: "Start",
-    },
 
-]
+function Bars(props){
+    
+    return (
+        <div className="barContainer">
+                {props.currArray.map((value, idx) => 
+                    (
+                        <div className="arrayBars" key ={idx} style={{height: value + "%",}}>
+                        </div>
+                    ))}
+        </div>
+    );
+}
 
 export default function AppBars(props) {
     const classes = useStyles();
     const [currArray, setArray] = useState([]);
-    const [currSize, setSize] = React.useState(10);
-    const [currAlg, setAlg] = React.useState("S_SORT");
-    const [currSpeed, setSpeed] = React.useState(1);
-    const [history, setHistory] = React.useState();
+    const [currSize, setSize] = useState(10);
+    const [currAlg, setAlg] = useState("S_SORT");
+    const [currSpeed, setSpeed] = useState(1);
+    const [history, setHistory] = useState([]);
+    const [historyIdx, setHistoryIdx] = useState(0);
 
 
     const [isDisabled, setDisabled] = React.useState({disabled: false});
@@ -63,6 +70,12 @@ export default function AppBars(props) {
         setAlg(e.target.value);
     }
 
+    
+
+    const updateHistoryIdx = (e,data) => {
+        setHistoryIdx(data);
+        testHistory(data);
+    }
 
     useEffect(() => {
         function resetArray(){
@@ -89,20 +102,18 @@ export default function AppBars(props) {
         let returnedArrays = sortDecider(currArray, currAlg);
 
         returnedArrays.then(function(result){
-            setHistory(result[1]);
-
-            console.log(history);
+            history.push(result[1]);
             
         })
-
-
     }
 
 
-    function updateHistory(){
+    function testHistory(idx){
+        let bars = document.getElementsByClassName("arrayBars");
+        for(let i =0;i<bars.length;i++){
+            bars[i].style.height = history[0][idx][i] + "%";
+        }
         
-
-            
         
     }
 
@@ -174,42 +185,31 @@ export default function AppBars(props) {
                     </ButtonGroup>
                 </Toolbar>  
             </AppBar>
-
-            <AppBar style={{bottom:0, top: "auto"}}>
-                <Toolbar style={{}}>
-                    <Button
-                        onClick={() => updateHistory()}
-                    >
-                        TEST
-                    </Button>
-                </Toolbar>
-            </AppBar>
-            {/* <AppBar className={classes.lowestAppBar}>
+            
+            <AppBar className={classes.lowestAppBar}>
                 <Toolbar style={{justifyContent:"space-between"}}>
+                <Grid align="center" className="historyGrid">
+                        <Typography variant="h5">
+                            History of sorts
+                        </Typography>
                     <HistorySlider
+                        defaultValue={0}
                         min={0}
+                        max={currSize-1}
                         step = {1}
                         valueLabelDisplay="auto"
-                        marks={HistoryMarks}
-                    ></HistorySlider>
-
-                    <Button 
-                    variant="contained"
-                    onClick={() => updateHistory()}
+                        value = {historyIdx}
+                        onChange={updateHistoryIdx}
+                    />
+                </Grid>
                     
-                    >
-                        ASKDJf
-                    </Button>
+
                 </Toolbar>
                 
-            </AppBar> */}
-            <div className="barContainer">
-                {currArray.map((value, idx) => 
-                    (
-                        <div className="arrayBars" key ={idx} style={{height: value + "%",}}>
-                        </div>
-                    ))}
-            </div>
+            </AppBar>
+            <Bars
+                currArray = {currArray}
+            ></Bars>
 
         </div>
     );

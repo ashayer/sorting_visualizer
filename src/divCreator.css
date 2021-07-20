@@ -37,6 +37,10 @@ a, a:hover, a:visited, a:active {
     width: 25%;
 }
 
+.historyGrid {
+    width: 100%;
+}
+
 .buttonGroup{
     width: 25%;
 }
