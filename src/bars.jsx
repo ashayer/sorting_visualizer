@@ -40,6 +40,7 @@ function Bars(props){
 }
 
 export default function AppBars(props) {
+    let value = 0;
     const classes = useStyles();
     const [currArray, setArray] = useState([]);
     const [currSize, setSize] = useState(25);
@@ -77,8 +78,13 @@ export default function AppBars(props) {
     }
 
     const updateHistoryIdx = (e,data) => {
+        const slider = document.getElementById("history");
+        slider.max = history[0].length-1;
         setHistoryIdx(data);
-        testHistory(data);
+
+        testHistory(slider.value);
+        
+        
     }
 
     useEffect(() => {
@@ -109,6 +115,8 @@ export default function AppBars(props) {
             history.push(result[1]);
 
             updateNotDisabled();
+            value = result[1].length;
+            console.log(result[1]);
             
         })
 
@@ -178,7 +186,7 @@ export default function AppBars(props) {
                             defaultValue = {250}
                             step={5}
                             min={25}
-                            max={100}
+                            max={300}
                             valueLabelDisplay="auto"
                             value = {currSize}
                             onChange = {updateSize}
@@ -200,17 +208,26 @@ export default function AppBars(props) {
                         <Typography variant="h5">
                             History of sorts
                         </Typography>
-                    <HistorySlider
+                    {/* <HistorySlider
                         defaultValue={0}
-                        min={1}
-                        max={currSize-1}
+                        min={0}
+                        max = {currSize-1}
                         step = {1}
                         valueLabelDisplay="auto"
                         value = {historyIdx}
                         onChange={updateHistoryIdx}
                         disabled={isNotDisabled}
+                        id = "history"
+                    /> */}
 
-                    />
+
+
+                    <input type="range" min="0" max = "24" className="historySlider" id="history"
+                        value = {historyIdx}
+                        onChange={updateHistoryIdx}
+                        disabled={isNotDisabled}
+                    
+                    ></input>
                 </Grid>
                     
 

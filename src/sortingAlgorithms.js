@@ -16,7 +16,7 @@ export async function sortDecider(array, alg){
             //return quickSort(array, 0, array.length-1,[]);
             break;
         case "H_SORT":
-            return heapSort(array);
+            return heapSort(array).then(token => {return token});
         default:
 
     }
@@ -168,11 +168,14 @@ async function insertionSort(array){
 }
 
 
-function heapSort(array){
+async function heapSort(array){
     let history = [];
 
     let size = array.length;
+    history.push(array.slice());
+
     for(let i =Math.floor(size / 2) - 1; i>=0; i--){
+        history.push(array.slice());
         heap(array, size, i, history);
     }
 
@@ -180,8 +183,9 @@ function heapSort(array){
         let temp = array[0];
         array[0] = array[i];
         array[i] = temp;
-        //animationArray.push([0, i]);
+        
         heap(array, i, 0, history);
+        history.push(array.slice());
     }
     
     return [array, history];
@@ -204,7 +208,7 @@ function heap(array, size, i, historyArr){
         let temp = array[i];
         array[i] = array[root];
         array[root] = temp;
-        //animationArr.push([root, i]);
+        historyArr.push(array.slice());
         heap(array, size, root, historyArr);
     }
 
