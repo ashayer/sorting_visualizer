@@ -43,8 +43,8 @@ export default function AppBars(props) {
     let value = 0;
     const classes = useStyles();
     const [currArray, setArray] = useState([]);
-    const [currSize, setSize] = useState(25);
-    const [currAlg, setAlg] = useState("I_SORT");
+    const [currSize, setSize] = useState(250);
+    const [currAlg, setAlg] = useState("H_SORT");
     const [currSpeed, setSpeed] = useState(250);
     const [history, setHistory] = useState([]);
     const [historyIdx, setHistoryIdx] = useState(0);
@@ -116,7 +116,7 @@ export default function AppBars(props) {
 
             updateNotDisabled();
             value = result[1].length;
-            console.log(result[1]);
+   
             
         })
 
@@ -183,7 +183,7 @@ export default function AppBars(props) {
                             Size of array
                         </Typography>
                         <ArraySlider
-                            defaultValue = {250}
+                            defaultValue = {25}
                             step={5}
                             min={25}
                             max={300}
@@ -208,19 +208,6 @@ export default function AppBars(props) {
                         <Typography variant="h5">
                             History of sorts
                         </Typography>
-                    {/* <HistorySlider
-                        defaultValue={0}
-                        min={0}
-                        max = {currSize-1}
-                        step = {1}
-                        valueLabelDisplay="auto"
-                        value = {historyIdx}
-                        onChange={updateHistoryIdx}
-                        disabled={isNotDisabled}
-                        id = "history"
-                    /> */}
-
-
 
                     <input type="range" min="0" max = "24" className="historySlider" id="history"
                         value = {historyIdx}

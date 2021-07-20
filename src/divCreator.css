@@ -51,3 +51,7 @@ a, a:hover, a:visited, a:active {
 .sortButton{
     width: 50%;;
 }
+
+.historySlider{
+    width: 50%;
+}

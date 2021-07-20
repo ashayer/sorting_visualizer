@@ -27,11 +27,6 @@ export function setDelay(time){
 
 }
 
-export function addHistory(){
-
-    
-    
-}
 function swap(barOne, barTwo){
     let temp = barOne.style.height;
     barOne.style.height = barTwo.style.height;
@@ -169,49 +164,81 @@ async function insertionSort(array){
 
 
 async function heapSort(array){
+    let bars = document.getElementsByClassName("arrayBars");
+
     let history = [];
 
     let size = array.length;
     history.push(array.slice());
 
     for(let i =Math.floor(size / 2) - 1; i>=0; i--){
+        await wait(delay);
         history.push(array.slice());
-        heap(array, size, i, history);
+        heap(array, size, i, history,bars);
     }
 
     for(let i = size - 1; i > 0;i--){
+
+        await wait(delay);
+        swap(bars[0],bars[i]);
         let temp = array[0];
         array[0] = array[i];
         array[i] = temp;
         
-        heap(array, i, 0, history);
+        heap(array, i, 0, history,bars);
+        bars[i].style.background = "green";
+
         history.push(array.slice());
     }
-    
+
+
+
+    bars[0].style.background = "green";
+
     return [array, history];
 }
 
-function heap(array, size, i, historyArr){
+function heap(array, size, i, historyArr, bars){
     let root = i;
     let left = 2 * i + 1;
     let right = 2 * i + 2;
 
     if(left < size && array[left] > array[root]){
+
+        
+
         root = left;
+
+        //bars[root].style.background = "blue";
+
     }
 
     if(right < size && array[right] > array[root]){
-        root = right;
-    }
+        
+        
 
+        root = right;
+
+        //bars[root].style.background = "blue";
+
+    }
+    
     if(root !== i){
+        swap(bars[i],bars[root]);
         let temp = array[i];
         array[i] = array[root];
         array[root] = temp;
-        historyArr.push(array.slice());
-        heap(array, size, root, historyArr);
-    }
 
+        
+        bars[root].style.background = "orange";
+
+        historyArr.push(array.slice());
+        heap(array, size, root, historyArr,bars);
+
+        bars[root].style.background = "orange";
+
+    }
+    
 }
 
 // function quickSort(array, low, high, animationArray){
