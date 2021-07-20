@@ -26,7 +26,6 @@ const marks = [
 
 ]
 
-
 function Bars(props){
     
     return (
@@ -43,9 +42,9 @@ function Bars(props){
 export default function AppBars(props) {
     const classes = useStyles();
     const [currArray, setArray] = useState([]);
-    const [currSize, setSize] = useState(10);
-    const [currAlg, setAlg] = useState("S_SORT");
-    const [currSpeed, setSpeed] = useState(1);
+    const [currSize, setSize] = useState(25);
+    const [currAlg, setAlg] = useState("B_SORT");
+    const [currSpeed, setSpeed] = useState(250);
     const [history, setHistory] = useState([]);
     const [historyIdx, setHistoryIdx] = useState(0);
 

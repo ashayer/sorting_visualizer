@@ -1,9 +1,9 @@
-let delay = 1;
+let delay = 250;
 
 export async function sortDecider(array, alg){
     switch(alg){
         case "B_SORT":
-            //return bubbleSort(array);
+            return bubbleSort(array).then(token => {return token});
             break;
         case "M_SORT":
             // return mergeSort(array, 0, array.length-1, []);
@@ -46,7 +46,7 @@ async function selectionSort(array){
     let history = [];
     
     for(let i = 0;i<array.length;i++){
-        
+
         history.push(array.slice());
 
         let min = i;
@@ -69,10 +69,7 @@ async function selectionSort(array){
         
 
         bars[i].style.background = "orange";
-
-
         await wait(delay); 
-
 
         let temp = array[i];
         array[i] = array[min];
@@ -90,29 +87,43 @@ async function selectionSort(array){
     
 }
 
-// function bubbleSort(array){
-//     let bars = document.getElementsByClassName("arrayBars");
-//     bars[75].style.background = "blue";
+async function bubbleSort(array){
+    let bars = document.getElementsByClassName("arrayBars");
     
-//     let size = array.length;
-//     let animationArray = [];
-//     for(let i = 0; i < size;i++){
-//         for(let j = 0; j < size-i-1; j++){
+    let history = [];
+    
+    let size = array.length;
+    for(let i = 0; i < size;i++){
+        history.push(array.slice());
+        for(let j = 0; j < size-i-1; j++){
 
-//             if(array[j] > array[j+1]){
-//                 var temp = array[j];
-//                 array[j] = array[j+1];
-//                 array[j+1] = temp;
+            bars[j].style.background = "white";
+            bars[j+1].style.background = "white";
+            await wait(delay);
+            if(array[j] > array[j+1]){
+
+                swap(bars[j], bars[j+1])
+                var temp = array[j];
+                array[j] = array[j+1];
+                array[j+1] = temp;
                 
-//                 animationArray.push([j,j+1]);
-//             }
+            }
+            bars[j].style.background = "orange";
+            bars[j+1].style.background = "orange";
             
-//         }
-//     }
+            if(j+1===size-i-1){
+                bars[j+1].style.background = "green";
+            }
+        }
+       
+        if(i===size-1){
+            bars[0].style.background = "green";
+        }
+    }
 
 
-//     return [array,animationArray];
-// }
+    return [array,history];
+}
 
 // function insertionSort(array){
 //     let i,key, j;
