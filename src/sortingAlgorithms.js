@@ -1,4 +1,4 @@
-let delay = 250;
+let delay = 25;
 
 export async function sortDecider(array, alg){
     switch(alg){
@@ -13,8 +13,7 @@ export async function sortDecider(array, alg){
         case "S_SORT":
             return selectionSort(array).then(token => {return token});
         case "Q_SORT":
-            //return quickSort(array, 0, array.length-1,[]);
-            break;
+            return quickSort(array, 0, array.length-1, []).then(token => {return token});
         case "H_SORT":
             return heapSort(array).then(token => {return token});
         default:
@@ -204,25 +203,15 @@ function heap(array, size, i, historyArr, bars){
     let right = 2 * i + 2;
 
     if(left < size && array[left] > array[root]){
-
-        
-
         root = left;
-
         //bars[root].style.background = "blue";
 
     }
 
     if(right < size && array[right] > array[root]){
-        
-        
-
         root = right;
-
         //bars[root].style.background = "blue";
-
     }
-    
     if(root !== i){
         swap(bars[i],bars[root]);
         let temp = array[i];
@@ -241,37 +230,71 @@ function heap(array, size, i, historyArr, bars){
     
 }
 
-// function quickSort(array, low, high, animationArray){
-//     let animationsArray = animationArray;
-//     if(low < high){
-//         let part = partition(array, low, high, animationsArray);
-//         quickSort(array, low, part - 1, animationsArray);
-//         quickSort(array, part + 1, high, animationsArray);
-//     }
+async function quickSort(array, low, high, newHistory){
+    let history = newHistory;
+    let bars = document.getElementsByClassName("arrayBars");
 
-//     return [array, animationsArray];
-// }
+    history.push(array.slice());
+
+    if(low < high){
+
+        await wait(delay);
+        history.push(array.slice());
+
+        let part = await partition(array, low, high,history,bars);
+        await quickSort(array, low, part-1, history);
+        history.push(array.slice());
+
+        await quickSort(array, part + 1, high, history);
+        history.push(array.slice());
+
+   
+
+    }
+    else if(low >= 0 && high >= 0 && low < array.length && high < array.length){
+        bars[low].style.background = "green";
+        bars[high].style.background = "green";
+    }
+
+    return [array,history];
+}
 
 
-// function partition(array, low, high, animationArray){
-//     let pivot = array[high];
-//     let i = (low - 1);
+async function partition(array, low, high,history,bars){
+    let pivot = array[high];
+    let i = (low - 1);
 
-//     for(let j = low; j <= high - 1; j++){
-//         if(array[j] < pivot){
-//             i++;
-//             let temp = array[i];
-//             array[i] = array[j];
-//             array[j] = temp; 
-//             animationArray.push([i,j]);
-//         }
-//     }
-//     let temp = array[i+1];
-//     array[i+1] = array[high];
-//     array[high] = temp;
-//     animationArray.push([i+1,high]);
-//     return(i+1);
-// }
+    for(let j = low; j <= high - 1; j++){
+        
+        //await wait(delay);
+        if(array[j] < pivot){
+            bars[j].style.background = "white";
+            await wait(delay);
+            i++;
+
+            swap(bars[i],bars[j]);
+
+            let temp = array[i];
+            array[i] = array[j];
+            array[j] = temp; 
+            
+            history.push(array.slice());
+            bars[j].style.background = "orange";
+        }
+
+    }
+    bars[i+1].style.background = "white";
+    swap(bars[i+1],bars[high]);
+
+    let temp = array[i+1];
+    array[i+1] = array[high];
+    array[high] = temp;
+
+    await wait(delay);
+    bars[i+1].style.background = "green";
+
+    return(i+1);
+}
 
 function wait(time) { 
     return new Promise(resolve => { 

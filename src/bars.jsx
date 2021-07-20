@@ -44,8 +44,8 @@ export default function AppBars(props) {
     const classes = useStyles();
     const [currArray, setArray] = useState([]);
     const [currSize, setSize] = useState(250);
-    const [currAlg, setAlg] = useState("H_SORT");
-    const [currSpeed, setSpeed] = useState(250);
+    const [currAlg, setAlg] = useState("Q_SORT");
+    const [currSpeed, setSpeed] = useState(25);
     const [history, setHistory] = useState([]);
     const [historyIdx, setHistoryIdx] = useState(0);
 
@@ -113,7 +113,7 @@ export default function AppBars(props) {
 
         returnedArrays.then(function(result){
             history.push(result[1]);
-
+            console.log(result[0]);
             updateNotDisabled();
             value = result[1].length;
    
