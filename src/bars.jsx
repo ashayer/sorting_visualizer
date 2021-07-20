@@ -52,9 +52,16 @@ export default function AppBars(props) {
 
     const [isDisabled, setDisabled] = React.useState({disabled: false});
 
+    const [isNotDisabled, setNotDisabled] = React.useState({disabled: false});
+
     const updateDisable = (e,data) => {
         setDisabled(data);
-    
+
+    }
+
+    const updateNotDisabled = (e,data) => {
+        setNotDisabled(data);
+
     }
 
     const updateSpeed = (e, data) => {
@@ -69,8 +76,6 @@ export default function AppBars(props) {
     const updateAlg = (e) => {
         setAlg(e.target.value);
     }
-
-    
 
     const updateHistoryIdx = (e,data) => {
         setHistoryIdx(data);
@@ -103,8 +108,12 @@ export default function AppBars(props) {
 
         returnedArrays.then(function(result){
             history.push(result[1]);
+
+            updateNotDisabled();
             
         })
+
+        
     }
 
 
@@ -179,7 +188,7 @@ export default function AppBars(props) {
                         />
                     </Grid>
                     
-                    <ButtonGroup className="buttonGroup" onClick={() => updateDisable()} disabled={!isDisabled}>
+                    <ButtonGroup className="buttonGroup" onClick={()=> updateDisable()} disabled={!isDisabled}>
                         <Button onClick={() => sortBars()} id="sortButton" variant="contained" className="sortButton">Sort</Button>
                         <Button onClick={() => resetArray()} className="newArrayButton" variant="contained"> New Array</Button>
                     </ButtonGroup>
@@ -200,6 +209,8 @@ export default function AppBars(props) {
                         valueLabelDisplay="auto"
                         value = {historyIdx}
                         onChange={updateHistoryIdx}
+                        disabled={isNotDisabled}
+
                     />
                 </Grid>
                     
