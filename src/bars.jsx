@@ -3,7 +3,7 @@ import {AppBar,Toolbar, FormControl, MenuItem, Select, Box, Button, ButtonGroup,
 import './divCreator.css';
 import { sortDecider } from "./sortingAlgorithms";
 import { setDelay } from "./sortingAlgorithms";
-import {ArraySlider,SpeedSlider,Title, useStyles, HistorySlider} from './styles';
+import {ArraySlider,SpeedSlider,Title, useStyles} from './styles';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import "./sortingAlgorithms";
@@ -40,11 +40,11 @@ function Bars(props){
 }
 
 export default function AppBars(props) {
-    let value = 0;
+    
     const classes = useStyles();
     const [currArray, setArray] = useState([]);
-    const [currSize, setSize] = useState(250);
-    const [currAlg, setAlg] = useState("Q_SORT");
+    const [currSize, setSize] = useState(25);
+    const [currAlg, setAlg] = useState("M_SORT");
     const [currSpeed, setSpeed] = useState(25);
     const [history, setHistory] = useState([]);
     const [historyIdx, setHistoryIdx] = useState(0);
@@ -107,13 +107,20 @@ export default function AppBars(props) {
         }
         setArray(tempArray);
     }
-
     function sortBars(){
+        
         let returnedArrays = sortDecider(currArray, currAlg);
 
         returnedArrays.then(function(result){
+            let value = 0;
+
+           // console.log(result[0]);
+           // console.log(result[1]);
+            
+            
+            
             history.push(result[1]);
-            console.log(result[0]);
+
             updateNotDisabled();
             value = result[1].length;
    
@@ -195,8 +202,8 @@ export default function AppBars(props) {
                         />
                     </Grid>
                     
-                    <ButtonGroup className="buttonGroup" onClick={()=> updateDisable()} disabled={!isDisabled}>
-                        <Button onClick={() => sortBars()} id="sortButton" variant="contained" className="sortButton">Sort</Button>
+                    <ButtonGroup className="buttonGroup" disabled={!isDisabled}>
+                        <Button onClick={() => {sortBars(); updateDisable()}} id="sortButton" variant="contained" className="sortButton">Sort</Button>
                         <Button onClick={() => resetArray()} className="newArrayButton" variant="contained"> New Array</Button>
                     </ButtonGroup>
                 </Toolbar>  

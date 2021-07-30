@@ -5,9 +5,7 @@ export async function sortDecider(array, alg){
         case "B_SORT":
             return bubbleSort(array).then(token => {return token});
         case "M_SORT":
-            // return mergeSort(array, 0, array.length-1, []);
-            //return mergeSort(array);
-            break;
+             return mergeSort(array, 0, array.length-1, []).then(token => {return token});
         case "I_SORT":
             return insertionSort(array).then(token => {return token});
         case "S_SORT":
@@ -173,7 +171,7 @@ async function heapSort(array){
     for(let i =Math.floor(size / 2) - 1; i>=0; i--){
         await wait(delay);
         history.push(array.slice());
-        heap(array, size, i, history,bars);
+        await heap(array, size, i, history,bars);
     }
 
     for(let i = size - 1; i > 0;i--){
@@ -184,7 +182,9 @@ async function heapSort(array){
         array[0] = array[i];
         array[i] = temp;
         
-        heap(array, i, 0, history,bars);
+       
+
+        await heap(array, i, 0, history,bars);
         bars[i].style.background = "green";
 
         history.push(array.slice());
@@ -197,7 +197,7 @@ async function heapSort(array){
     return [array, history];
 }
 
-function heap(array, size, i, historyArr, bars){
+async function heap(array, size, i, historyArr, bars){
     let root = i;
     let left = 2 * i + 1;
     let right = 2 * i + 2;
@@ -213,6 +213,7 @@ function heap(array, size, i, historyArr, bars){
         //bars[root].style.background = "blue";
     }
     if(root !== i){
+   
         swap(bars[i],bars[root]);
         let temp = array[i];
         array[i] = array[root];
@@ -300,4 +301,84 @@ function wait(time) {
     return new Promise(resolve => { 
         setTimeout(() => { resolve('resolved') }, time); 
     }) 
+}
+
+
+
+
+async function mergeSort(array, left, right, newHistory){
+    let history = newHistory;
+    let bars = document.getElementsByClassName("arrayBars");
+    if(left < right){
+        let middle = left + Math.floor((right - left) / 2);
+        history.push(array.slice());
+
+        await mergeSort(array, left, middle, history);
+        history.push(array.slice());
+
+        await mergeSort(array, middle + 1, right, history);
+        history.push(array.slice());
+
+        await merge(array, left, middle, right, history, bars);
+        
+    }
+    return [array,history];
+    
+
+    
+}
+
+async function merge(array, low, middle, high, history, bars){
+    const n1 = middle - low + 1;
+    const n2 = high - middle;
+    let left = new Array(n1);
+    let right = new Array(n2);
+
+    for(let i =0; i < n1; i++){
+        await wait(delay);
+        left[i] = array[low + i];
+       // bars[low+i].style.background = "red";
+    }
+
+    for(let i =0; i < n2; i++){
+        await wait(delay);
+        right[i] = array[middle + 1 + i];
+       // bars[middle + 1 + i].style.background = "white"
+    }
+
+    let i = 0, j = 0, k = low;
+
+    while(i < n1 && j < n2){
+        await wait(delay);
+        if(left[i] <= right[j]){
+            bars[k].style.height = left[i] + "%";
+            array[k] = left[i];
+            i++;
+            k++;
+
+        }
+        else{
+            bars[k].style.height = right[j] + "%";
+            array[k] = right[j];
+            j++;
+            k++;
+        }
+    
+    }
+
+    while(i < n1){
+        await wait(delay);
+        bars[k].style.height = left[i] + "%";
+        array[k]= left[i];
+        i++;
+        k++;
+    }
+    while(j < n2){
+        await wait(delay);
+        bars[k].style.height = right[j] + "%";
+        array[k] = right[j];
+        j++;
+        k++;
+    }
+
 }
