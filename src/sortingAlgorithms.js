@@ -337,13 +337,13 @@ async function merge(array, low, middle, high, history, bars){
     for(let i =0; i < n1; i++){
         await wait(delay);
         left[i] = array[low + i];
-       // bars[low+i].style.background = "red";
+        bars[low+i].style.background = "red";
     }
 
     for(let i =0; i < n2; i++){
         await wait(delay);
         right[i] = array[middle + 1 + i];
-       // bars[middle + 1 + i].style.background = "white"
+        bars[middle + 1 + i].style.background = "white"
     }
 
     let i = 0, j = 0, k = low;
@@ -368,14 +368,19 @@ async function merge(array, low, middle, high, history, bars){
 
     while(i < n1){
         await wait(delay);
+        
         bars[k].style.height = left[i] + "%";
+        
         array[k]= left[i];
         i++;
         k++;
     }
     while(j < n2){
         await wait(delay);
+        
+
         bars[k].style.height = right[j] + "%";
+        
         array[k] = right[j];
         j++;
         k++;
