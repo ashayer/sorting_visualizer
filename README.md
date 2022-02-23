@@ -1,6 +1,6 @@
 # Sorting Visualizer
 
 -WIP
-[Interactive Sorting Visualizer](https://ashayer.github.io/sortingVisualizer)
+[Interactive Sorting Visualizer](https://ashayer.github.io/sorting_visualizer)
 
 
