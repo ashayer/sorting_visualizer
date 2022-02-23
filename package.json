@@ -1,6 +1,6 @@
 {
   "name": "sorting-web-app",
-  "homepage": "https://ashayer.github.io/sortingVisualizer/",
+  "homepage": "https://ashayer.github.io/sorting_visualizer/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
